@@ -1,0 +1,85 @@
+
+`	java:S112)"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S1123"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112r"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112¯"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112â"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Ÿ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Ğ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+h
+java:S1192k"SDefine a constant instead of duplicating this literal "å·²æœ‰è¯¥å­¦å·äº†" 5 times.(ôÄğr
+
+java:S1192L"wDefine a constant instead of duplicating this literal "å®Œæˆå…¨éƒ¨æˆ–è€…å¯èƒ½excelè¡¨é‡Œé¢å¤šäº†å…¶ä»–å€¼" 15 times.(İ‰öï
+f	java:S117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…‚²ğ
+k	java:S117e"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬é‹åøÿÿÿÿ
+f	java:S117z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…‚²ğ
+g	java:S117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êÏú‰
+g	java:S117·"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…‚²ğ
+g	java:S117ê"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…‚²ğ
+l	java:S117ô"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÈêøÿÿÿÿ
+l	java:S117ô"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÈêøÿÿÿÿ
+g	java:S117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã…Şû
+g	java:S117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…‚²ğ
+g	java:S117°"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê°–
+g	java:S117°"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê°–
+g	java:S117Ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…‚²ğ
+g	java:S117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÌ÷
+g	java:S117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÌ÷
+g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.( ™ÔÎşÿÿÿÿ
+\
+java:S22591"FA "NullPointerException" could be thrown; "workbook" is nullable here.(ò›Üä
+P
+java:S3516¥"9Refactor this method to not always return the same value.(ïİ“¥
+P
+java:S3516Ö"9Refactor this method to not always return the same value.(Øº¿¶
+S	java:S106 "9Replace this use of System.out or System.err by a logger.(±–‰²ıÿÿÿÿ
+S	java:S106-"9Replace this use of System.out or System.err by a logger.(î…õûúÿÿÿÿ
+h
+java:S37769"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(Èä
+=
+java:S1659E""Declare "name" on a separate line.(£°…Šûÿÿÿÿ
+N	java:S106L"9Replace this use of System.out or System.err by a logger.(İ‰öï
+N	java:S106T"9Replace this use of System.out or System.err by a logger.(İ‰öï
+N	java:S106\"9Replace this use of System.out or System.err by a logger.(İ‰öï
+N	java:S106d"9Replace this use of System.out or System.err by a logger.(ö¡¹ê
+M	java:S106k"9Replace this use of System.out or System.err by a logger.(ôÄğr
+m
+java:S3776x"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ËÏõøÿÿÿÿ
+>
+java:S1659„""Declare "name" on a separate line.(£°…Šûÿÿÿÿ
+O	java:S106‹"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106”"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106›"9Replace this use of System.out or System.err by a logger.(İ‰öï
+N	java:S106¨"9Replace this use of System.out or System.err by a logger.(ôÄğr
+i
+java:S3776µ"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(ì¤»Ô
+O	java:S106È"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106Ğ"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106Ø"9Replace this use of System.out or System.err by a logger.(ö¡¹ê
+N	java:S106Ü"9Replace this use of System.out or System.err by a logger.(ôÄğr
+i
+java:S3776è"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(à•
+B
+java:S1659ô"&Declare "class_id" on a separate line.(øÈêøÿÿÿÿ
+g	java:S128ˆ"LEnd this switch case with an unconditional break, return or throw statement.(ª¦ªµşÿÿÿÿ
+O	java:S106ı"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106…"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106Œ"9Replace this use of System.out or System.err by a logger.(İ‰öï
+N	java:S106˜"9Replace this use of System.out or System.err by a logger.(ôÄğr
+i
+java:S3776¥"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(ïİ“¥
+?
+java:S1659°"(Declare "teacher_id" on a separate line.(Ê°–
+O	java:S106·"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106¿"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106È"9Replace this use of System.out or System.err by a logger.(Ë§÷¤
+T	java:S106Ê"9Replace this use of System.out or System.err by a logger.(´ôë ùÿÿÿÿ
+i
+java:S3776Ö"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(Øº¿¶
+=
+java:S1659á"&Declare "class_id" on a separate line.(õÌ÷
+O	java:S106è"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106ğ"9Replace this use of System.out or System.err by a logger.(İ‰öï
+O	java:S106ù"9Replace this use of System.out or System.err by a logger.(º¸¢›
+N	java:S106û"9Replace this use of System.out or System.err by a logger.(ôÄğr

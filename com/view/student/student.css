@@ -1,0 +1,55 @@
+.student_select_box{
+    display: inline-block;
+  }
+  .student_select_information_list{
+    display: inline-block;
+  }
+  .student_information_box input{
+    margin-top: 10px;
+  }
+  .input-group-submit{
+    height: 50px;
+    position: relative;
+  }
+  .input-group-submit button{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    
+  }
+  .menu{
+    width: 100%;
+    position: relative;
+    background-color: #337ab7;
+    color: white;
+    border-radius: 5px;
+    height: 30px;
+    text-align: left;
+  }
+  .menu .menu-title{
+    /* width: 200px; */
+    left: 2%;
+    text-indent: 2em;
+    line-height: 30px;
+  }
+  .menu .badge{
+    position: absolute;
+    top:50%;
+    right: 2%;
+    transform: translateY(-50%);
+    text-indent: 0px;
+  }
+  ul {
+    list-style-type:none;
+  }
+  .student_select_echarts_p1_1{
+    height: 300px;
+    width: 400px;
+    background-color: white;
+  }
+  .student_select_echarts_p1_2{
+    height: 300px;
+    width: 400px;
+    background-color: white;
+  }

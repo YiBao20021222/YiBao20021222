@@ -1,0 +1,14 @@
+
+D
+java:S1121{".Extract the assignment out of this expression.(Æ“Ç
+k	java:S117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ü—ÍÖüÿÿÿÿ
+f	java:S117t"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı¯ßÑ
+g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(îÓ£òúÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(§îÁùÿÿÿÿ
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(¼ Òşüÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(ğ›§
+Q	java:S125%"<This block of commented-out lines of code should be removed.(¬ş›­
+V	java:S125,"<This block of commented-out lines of code should be removed.(²ñÎ¹ÿÿÿÿÿ
+?
+java:S1940{")Use the opposite operator ("!=") instead.(Æ“Ç

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="../jquery-min.js"></script>
+</head>
+<body>
+<div class="login">
+    <form action="" class="login_information">
+        <div class="user_information">
+            <h1>Login</h1>
+            <div class="id">
+                <input type="text" name="user_id" placeholder="账号" >
+            </div>
+            <div class="name">
+                <input  type="text" name="user_name" placeholder="姓名" >
+            </div>
+            <div class="password">
+            <input type="password" name="user_password" placeholder="密码" >
+            </div>
+        </div>
+        <div class="commit">
+            <input type="submit" class="user_commit" value="登录" name="user_commit" >
+        </div>
+    </form>
+    <script>
+        $(".login_information").submit(function (e) { 
+            var data=$('form').serialize();
+            e.preventDefault();
+            $.ajax({
+                type: "get",
+                url: "http://127.0.0.1:3000/SQL_USER_LOGIN",
+                data: data,
+                success: function (data) {
+                    if(data[0]){
+                        switch(data[0].type){
+                            case "1":
+                                location.assign("../student/student.html");
+                                break;
+                            case "2":
+                                location.assign("../teacher/teacher.html");
+                                break;
+                            case "3":
+                                console.log("管理员")
+                                break;
+                            default:
+                                console.log("登录失败")
+                                break;
+                        }
+                    }else{
+                        console.log("登录失败");
+                    }
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+
+i
+java:S1192j"SDefine a constant instead of duplicating this literal "å­¦å·ä¸èƒ½æœ‰ç©º" 3 times.(çÄ©ò
+f	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ï¡Ã¶
+b	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(¯ÅÀî
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(§îÁùÿÿÿÿ
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(¼ Òşüÿÿÿÿ
+S	java:S106h"9Replace this use of System.out or System.err by a logger.(ó»şûÿÿÿÿ

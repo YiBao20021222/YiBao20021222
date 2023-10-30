@@ -1,0 +1,106 @@
+.student_select_box{
+    display: inline-block;
+  }
+  .student_select_information_list_p4{
+    display: inline-block;
+  }
+  .student_information_box input{
+    margin-top: 10px;
+  }
+  .input-group-submit{
+    height: 50px;
+    position: relative;
+  }
+  .input-group-submit button{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    
+  }
+  .menu{
+    width: 100%;
+    position: relative;
+    background-color: #337ab7;
+    color: white;
+    border-radius: 5px;
+    height: 30px;
+    text-align: left;
+  }
+  .menu .menu-title{
+    left: 2%;
+    text-indent: 2em;
+    line-height: 30px;
+  }
+  .menu .badge{
+    position: absolute;
+    top:50%;
+    right: 2%;
+    transform: translateY(-50%);
+    text-indent: 0px;
+  }
+  .open_teacher_priv {
+      /* display: none; */
+  }
+  ul {
+    list-style:none;
+  }
+  .studentItem{
+    height: 30px;
+  }
+  .student_select_information_list_p4 div{
+    height: 40px;
+    overflow: hidden;
+  }
+  .listItem{
+    width: 100%;
+    height: 30px;
+    background-color: #337ab7;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+    float:left;
+  }
+  .listItem h7{
+    line-height: 30px;
+  }
+  .listItem span[class="badge"]{
+    line-height: 24px;
+  }
+  .student_select_box form{
+    display: none;
+  }
+  .student_select_information_list div {
+    height: 40px; 
+    overflow: visible;
+    
+  }
+  .student_select_information_list {
+    display: inline-block;
+  }
+  .student_select_information_list .fixed-table-toolbar{
+    background-color: #337ab7;
+    border-radius: 5px;
+    height: 54px;
+  }
+  .student_select_echarts_p1_1{
+    height: 300px;
+    width: 400px;
+    background-color: white;
+  }
+  .student_select_echarts_p1_2{
+    height: 300px;
+    width: 400px;
+    background-color: white;
+  }
+  .student_select_echarts_p5_1{
+    height: 300px;
+    width: 400px;
+  }
+  .student_select_echarts_p5_2{
+    height: 300px;
+    width: 400px;
+  }
+  
+  

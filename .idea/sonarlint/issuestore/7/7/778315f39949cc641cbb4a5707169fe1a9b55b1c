@@ -1,0 +1,7 @@
+
+g	java:S101	"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(‹áÛıÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(§îÁùÿÿÿÿ
+l
+java:S3008"QRename this field "UseDao" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıíªÜıÿÿÿÿ
+f
+java:S1845"PRename field "useDao" to prevent any misunderstanding/clash with field "UseDao".(šÊß«

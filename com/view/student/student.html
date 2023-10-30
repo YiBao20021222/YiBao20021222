@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../jquery-min.js"> </script>
+  <link rel="stylesheet" href="../bootstrap-3.4.1//bootstrap-3.4.1/dist/css/bootstrap.css">
+  <script src="../bootstrap-3.4.1/bootstrap-3.4.1/dist/js/templat-web.js"></script>
+  <script src="../../../node_modules/echarts/dist/echarts.js"></script>
+  <script src="../../../node_modules/default-passive-events/dist/index.js"></script>
+  <script type="text/html" id="student_information_item_template">
+    <tr>
+      <td>{{student_id}}</td>
+      <td>{{student_name}}</td>
+      <td>{{class_type}}</td>
+      <td>{{teacher_name}}</td>
+      <td>{{score}}</td>
+    </tr>
+</script>
+<link rel="stylesheet" href="student.css">
+</head>
+<body>
+      
+      <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">学生系统</h3>
+          </div>
+          <div class="panel-body">
+            
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <div class="student_select_box">
+                <ul>
+                  <li index="1">
+                    <div class="menu">
+                    
+                      <h4 class="menu-title">查询学生成绩</h4>
+                      <span class="badge" id="badge1">close</span>
+                    </div>
+                    <form action="" class="student_information studentSelect" >
+                          <div class="input-group student_information_box">
+                            
+                            <input type="text" class="form-control" name="student_id" placeholder="账号">
+                            <input tyep="text" class="form-control" name="student_name"  placeholder="姓名">
+                            <input type="password"class="form-control" name="student_password" placeholder="密码">
+                          </div>
+                          <div class="input-group-submit">
+                            <button type="submit" class="btn btn-primary">搜索</button>
+                          </div>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <div class="student_select_information_list panel1">
+                <table class="table table-hover text-center">
+                  <thead>
+                    <tr>
+                      <th>学生学号</th><th>学生姓名</th><th>科目</th><th>老师</th><th>成绩</th>
+                    </tr>
+                  </thead>
+                  <tbody id="student_information_item">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <div class="student_select_echarts_p1_1 panel1">
+                        图表区
+              </div>
+              <div class="student_select_echarts_p1_2 panel1">
+                        图表区
+              </div>
+            </div>
+          </div> 
+      </div>
+</body>
+        <script src="studentAjax.js"></script>
+        <script src="../addlistener.js"></script>
+</html>
