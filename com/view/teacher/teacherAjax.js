@@ -1,17 +1,21 @@
+//全局配置
+var TEACHER_URL_HOST_PORT="http://127.0.0.1:3000" //设置老师的通信协议、地址、端口
 
-var TEACHER_SELECT_STUDENT_TABLE1=null;
-var TEACHER_SELECT_STUDENT_TABLE2=null;
+
+var TEACHER_SELECT_STUDENT_TABLE1=null;   //防抖:学生成绩柱状图 位置: hide3 panle1 
+var TEACHER_SELECT_STUDENT_TABLE2=null;   //防抖:学生成绩雷达图 位置: hide3 panle1
+
 $(".TEACHER_SELECT_STUDENT").submit(function (e) { 
-    /*
-    echerts
-        使用位置
-            1、查询学生 hide3 panle1区域
-
-    */
+// echerts
+    //获得echerts对象学生成绩柱状图,没有则初始化,有则不初始化
+        
         var myChart1= echarts.getInstanceByDom(document.querySelector(".student_select_echarts_p1_1")); //有的话就获取已有echarts实例的DOM节点。
         if(myChart1==null){
             TEACHER_SELECT_STUDENT_TABLE1=echarts.init(document.querySelector(".student_select_echarts_p1_1"));
         }
+
+    //学生成绩柱状图的基本配置初始化
+        
         var TEACHER_SELECT_STUDENT_OPTION_TABLE1={
             title: {
                 text: '学生各科成绩图'
@@ -46,10 +50,16 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                 }
                 ]
         };
+
+    //获得echerts对象获得学生成绩雷达图,没有则初始化,有则不初始化
+
         var myChart2= echarts.getInstanceByDom(document.querySelector(".student_select_echarts_p1_2")); //有的话就获取已有echarts实例的DOM节点。
         if(myChart2==null){
             TEACHER_SELECT_STUDENT_TABLE2=echarts.init(document.querySelector(".student_select_echarts_p1_2"));
         }
+
+    //学生成绩雷达图的基本配置初始化
+
         var TEACHER_SELECT_STUDENT_OPTION_TABLE2={
             title: {
               text: '成绩分析'
@@ -76,15 +86,17 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
               }
             ]
           };
+
+    //获得ajax基本数据配置
     var data=$(e.target).serialize();
     e.preventDefault();
+    //发送ajax请求
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
         data: data,
         success: function (data) {
-                //echarts
-                console.log(data);
+                //学生成绩雷达图的基本配置填入数据
                 for(var i=0;i<data.length;i++){
                     var namei=`{"name": "${data[i].class_type}","max": 100}`;
                     TEACHER_SELECT_STUDENT_OPTION_TABLE1.xAxis.data.push(data[i].class_type);
@@ -118,11 +130,12 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
     });
 });
 $(".SQL_USER_LOGIN").submit(function (e) { 
+    //获得ajax基本数据配置
     var data=$(e.target).serialize();
     e.preventDefault();
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:3000/SQL_USER_LOGIN",
+        url: TEACHER_URL_HOST_PORT+"/SQL_USER_LOGIN",
         data: data,
         success: function (data) {
             if(data[0].type==2){
@@ -140,7 +153,7 @@ $(".STUDENT_EXISTS input").on("keyup", function (e) {
         var data=`student_id=${student_id}`;
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/STUDENT_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
             data: data,
             success: function (response) {
             var li=$(e.target).parent().parent().parent();
@@ -175,7 +188,7 @@ $(".STUDENT_EXISTS").submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_EXISTS",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
         data: data,
         success: function (response) {
            var value=response[0]['key'];
@@ -195,7 +208,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var data="student_id="+input.val();
     $.ajax({
       type: "post",
-      url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION",
+      url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION",
       data: data,
       success: function (response) {
         var index=$(e.target).parent().parent().parent().attr("index")
@@ -220,7 +233,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_INSERT",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_INSERT",
         data: data,
         success: function (response) {
   
@@ -234,7 +247,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     data="student_id="+`${student_id}`,
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_DELETE",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_DELETE",
         data: data,
         success: function (response) {
             console.log(response);
@@ -253,7 +266,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_PASS",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_PASS",
         data: data,
         success: function (response) {
             console.log(response);
@@ -272,7 +285,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_S_NAME",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_S_NAME",
         data: data,
         success: function (response) {
             console.log(response);
@@ -285,7 +298,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var data="student_id="+input.val();
     $.ajax({
       type: "post",
-      url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT",
+      url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
       data: data,
       success: function (response) {
         var index=$(e.target).parent().parent().parent().attr("index")
@@ -315,7 +328,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_CLASS",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_CLASS",
         data: data,
         success: function (response) {
             console.log(response);
@@ -333,7 +346,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/CLASS_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -357,7 +370,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_SCORE",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_SCORE",
         data: data,
         success: function (response) {
             console.log(response);
@@ -374,7 +387,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/CLASS_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -398,7 +411,7 @@ $("#INPUT_TEACHER_EXISTS_ID").on("keyup", function (e) {
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/TEACHER_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -503,7 +516,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
     }
     $("#tablePage").bootstrapTable("destroy");
     $("#tablePage").bootstrapTable({
-        url: "http://127.0.0.1:3000/TEACHER_HAVE_STUDENT",         //请求后台的URL（*）
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_HAVE_STUDENT",         //请求后台的URL（*）
         method:'post',
         queryParams:data,
         striped: true,                      //是否显示行间隔色
@@ -650,7 +663,7 @@ $("#INPUT_TEACHER_EXISTS_ID_PAS_ID,#INPUT_TEACHER_EXISTS_ID_PAS_PAS").on("keyup"
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/TEACHER_APPROVE",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_APPROVE",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -672,14 +685,14 @@ $(".TEACHER_ADD_STUDENT_SCORE").click(function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/TEACHER_APPROVE",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_APPROVE",
         data: data,
         success: function (response) {
             var flag=response[0]["key"];
             if(flag){
-                $("#ADD_SCORE").prop("disabled","");
+                $("#ADD_SCORE").css("display","inline-block");
             }else{
-                $("#ADD_SCORE").prop("disabled","false");
+                $("#ADD_SCORE").css("display","none");
             }
         }
     });
@@ -699,32 +712,33 @@ $(".TEACHER_ADD_STUDENT_SCORE").click(function (e) {
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/SCORE_ADD_ABLE",
+            url: TEACHER_URL_HOST_PORT+"/SCORE_ADD_ABLE",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
                 var disable=search.next().text();
-                if(disable=="NO"){
-                    score.prop("disabled","false");
-                }else{
-                    score.prop("disabled","");
-                }
                 if(flag){
                     search.prev().prev().text("YES").css("background","red");
                     if(disable=="NO"){
                         score.prop("disabled","false");
+                        $("#ADD_SCORE").prop("disabled","false");
                     }
                 }else{
                     search.prev().prev().text("NO").css("background","green")
                     if(disable=="YES"){
                         score.prop("disabled","");
+                        $("#ADD_SCORE").prop("disabled","");
+                    }
+                    else if(disable=="NO"){
+                        score.prop("disabled","false");
+                        $("#ADD_SCORE").prop("disabled","false");
                     }
                 }
             }
         });
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
             data: data,
             success: function (data) {
                 var items="";
@@ -750,7 +764,7 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/CLASS_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -777,13 +791,13 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/SCORE_ADD",
+        url: TEACHER_URL_HOST_PORT+"/SCORE_ADD",
         data: data,
         success: function (response) {
             if(response){
                 $.ajax({
                     type: "post",
-                    url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT",
+                    url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
                     data: data,
                     success: function (data) {
                         var items="";

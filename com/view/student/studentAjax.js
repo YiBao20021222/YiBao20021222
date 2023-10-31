@@ -1,3 +1,6 @@
+//全局配置
+var STUDENT_URL_HOST_PORT="http://127.0.0.1:3000"; //设置学生的通信协议、地址、端口
+
 
 var STUDENT_SELECT_TABLE1=null;
 var STUDENT_SELECT_TABLE2=null;
@@ -77,7 +80,7 @@ $(".studentSelect").submit(function (e) {
     var data=$(e.target).serialize();
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_SELECT",
+        url: STUDENT_URL_HOST_PORT+"/STUDENT_SELECT",
         data: data,
         success: function (data) {
             
