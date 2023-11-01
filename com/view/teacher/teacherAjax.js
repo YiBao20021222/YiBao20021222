@@ -758,23 +758,27 @@ $(".TEACHER_ADD_STUDENT_SCORE").click(function (e) {
             success: function (response) {
                 var flag=response[0]["key"];
                 var disable=search.next().text();
-                if(flag){
-                    search.prev().prev().text("YES").css("background","red");
-                    if(disable=="NO"){
+                setTimeout(()=>{      //解决异步问题
+                    if(flag){
+                        search.prev().prev().text("YES").css("background","red");
+                        //成绩存在
                         score.prop("disabled","false");
                         $("#ADD_SCORE").prop("disabled","false");
+                    }else{
+                        search.prev().prev().text("NO").css("background","green")
+                        var ADD_SCORE_TABLE_FLAG=$("#student_information_item_p6_1").children().length;
+                        if(disable=="YES"&&ADD_SCORE_TABLE_FLAG>0){
+                            //在成绩不存在的前提下,如果科目存在,学生存在
+                            score.prop("disabled","");
+                            $("#ADD_SCORE").prop("disabled","");
+                        }
+                        else if(disable=="NO"||ADD_SCORE_TABLE_FLAG==0){
+                            //在成绩不存在的前提下,如果科目不存在或者学生不存在
+                            score.prop("disabled","false");
+                            $("#ADD_SCORE").prop("disabled","false");
+                        }
                     }
-                }else{
-                    search.prev().prev().text("NO").css("background","green")
-                    if(disable=="YES"){
-                        score.prop("disabled","");
-                        $("#ADD_SCORE").prop("disabled","");
-                    }
-                    else if(disable=="NO"){
-                        score.prop("disabled","false");
-                        $("#ADD_SCORE").prop("disabled","false");
-                    }
-                }
+                },100);
             }
         });
         $.ajax({
