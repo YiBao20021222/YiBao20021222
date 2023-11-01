@@ -605,7 +605,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
                     counts[9]+=1;
                 }
             }
-
+            //非分组
             score_u1=(Math.floor((score_u1/res.length)*100))/100;
             score_u2=Math.floor((score_u2/res.length-Math.pow(score_u1,2))*100)/100;
             for(var i=0;i<res.length;i++){
@@ -613,14 +613,33 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
                 score_s+=Math.pow(score-score_u1,3);
                 score_k+=Math.pow(score-score_u1,4);
             }
-            console.log(score_s);
-            console.log(score_k);
             score_s=Math.floor(((score_s/res.length)/Math.pow(score_u2,3/2))*100)/100;
             score_k=Math.floor(((score_k/res.length)/Math.pow(score_u2,2))*100-3)/100;
             $("#score_u1").text(score_u1);
             $("#score_u2").text(score_u2);
             $("#score_s").text(score_s);
             $("#score_k").text(score_k);
+            //分组
+            var score_group_u1=0;
+            var score_group_u2=0;
+            var score_group_s=0;
+            var score_group_k=0;
+            for(i=0;i<counts.length;i++){
+                score_group_u1+=counts[i]*(i*10+5);
+                score_group_u2+=counts[i]*Math.pow((i*10+5),2);
+            }
+            score_group_u1=Math.floor(score_group_u1/res.length*100)/100;
+            score_group_u2=Math.floor((score_group_u2/res.length-Math.pow(score_group_u1,2))*100)/100;
+            for(i=0;i<counts.length;i++){
+                score_group_s+=counts[i]*Math.pow((i*10+5)-score_group_u1,3);
+                score_group_k+=counts[i]*Math.pow((i*10+5)-score_group_u1,4);
+            }
+            score_group_s=Math.floor(((score_group_s/res.length)/Math.pow(score_group_u2,3/2))*100)/100;
+            score_group_k=Math.floor(((score_group_k/res.length)/Math.pow(score_group_u2,2))*100)/100;
+            $("#score_group_u1").text(score_group_u1);
+            $("#score_group_u2").text(score_group_u2);
+            $("#score_group_s").text(score_group_s);
+            $("#score_group_k").text(score_group_k);
             var length=counts.length;
             for(var i=0;i<length;i++){
                 if(counts[i]!=0){
@@ -835,6 +854,26 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
     });
     e.preventDefault();
  });
-
- 
+ $(".score_analysis_open_close").click(function (e) {
+    var score_analysis=$("#score_analysis");
+    var target=$(e.target);
+    console.log(target.text());
+    console.log(score_analysis);
+    if(target.text()=="收起"){
+        score_analysis.fadeOut();
+        target.text("打开");
+    }else{
+        score_analysis.fadeIn();
+        target.text("收起")
+    }
+    e.preventDefault();
+ });
+$(".score_analysis_open_close").hover(function (e) {
+        // over
+        $(e.target).css("background","orange");
+    }, function (e) {
+        // out
+        $(e.target).css("background","darkgray");
+    }
+);
 
