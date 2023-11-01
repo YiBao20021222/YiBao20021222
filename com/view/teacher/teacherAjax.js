@@ -619,6 +619,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
             $("#score_u2").text(score_u2);
             $("#score_s").text(score_s);
             $("#score_k").text(score_k);
+
             //分组
             var score_group_u1=0;
             var score_group_u2=0;
@@ -640,6 +641,48 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
             $("#score_group_u2").text(score_group_u2);
             $("#score_group_s").text(score_group_s);
             $("#score_group_k").text(score_group_k);
+
+        //指标,及其说明
+            //指标的说明
+                /*
+                    峰值: 一般在0-8内,超过8容易出现断层现象。
+                    均值: 一般在0到60为差,在60-80为良,80-100为优。 
+                    偏度: 一般大于0往右偏,一般小于0往左偏。
+                */
+            //初始化
+            var zhiBiaoShuoMing={
+                fengzhi:["不容易出现断层","容易出现断层"],
+                junzhi:["差","良","优"],
+                piandu:["左偏","不偏","右偏"]
+            }
+            //执行
+            if(res.length==0){
+                $("#fengzhi_shuoming").text(" ")
+                $("#junzhi_shuoming").text(" ")
+                $("#piandu_shuoming").text(" ")
+            }else{
+                if(score_k>8){
+                    $("#fengzhi_shuoming").text(zhiBiaoShuoMing.fengzhi[1]);
+                }else{
+                    $("#fengzhi_shuoming").text(zhiBiaoShuoMing.fengzhi[0]);
+                }
+                if(score_u1>=0&&score_u1<60.0){
+                    console.log(score_u1)
+                    $("#junzhi_shuoming").text(zhiBiaoShuoMing.junzhi[0])
+                }else if(80.0>score_u1&&score_group_u1>=60.0){
+                    $("#junzhi_shuoming").text(zhiBiaoShuoMing.junzhi[1])
+                }else{
+                    $("#junzhi_shuoming").text(zhiBiaoShuoMing.junzhi[2])
+                }
+                if(score_k<0){
+                    $("#piandu_shuoming").text(zhiBiaoShuoMing.piandu[0])
+                }
+                else if(score_k==0){
+                    $("#piandu_shuoming").text(zhiBiaoShuoMing.piandu[1])
+                }else{
+                    $("#piandu_shuoming").text(zhiBiaoShuoMing.piandu[2])
+                }
+            }
             var length=counts.length;
             for(var i=0;i<length;i++){
                 if(counts[i]!=0){
