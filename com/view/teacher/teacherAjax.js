@@ -439,7 +439,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
     }
         var TEACHER_HAVE_STUDENT_OPTION_TABLE1={
             title: {
-                text: '学生成绩图'
+                text: '成绩图'
                 },
             tooltip: {
                     trigger: 'axis',
@@ -565,9 +565,15 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
         
         responseHandler: function(res){
              //echarts
+            var score_u1=0;
+            var score_u2=0;
+            var score_s=0;
+            var score_k=0;
             var counts=[0,0,0,0,0,0,0,0,0,0];
             for(var i=0;i<res.length;i++){
                 var score=res[i].score;
+                score_u1+=score;
+                score_u2+=Math.pow(score,2);
                 if(0<=score&&score<10){
                     counts[0]+=1;
                 }
@@ -599,6 +605,22 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
                     counts[9]+=1;
                 }
             }
+
+            score_u1=(Math.floor((score_u1/res.length)*100))/100;
+            score_u2=Math.floor((score_u2/res.length-Math.pow(score_u1,2))*100)/100;
+            for(var i=0;i<res.length;i++){
+                var score=res[i].score;
+                score_s+=Math.pow(score-score_u1,3);
+                score_k+=Math.pow(score-score_u1,4);
+            }
+            console.log(score_s);
+            console.log(score_k);
+            score_s=Math.floor(((score_s/res.length)/Math.pow(score_u2,3/2))*100)/100;
+            score_k=Math.floor(((score_k/res.length)/Math.pow(score_u2,2))*100-3)/100;
+            $("#score_u1").text(score_u1);
+            $("#score_u2").text(score_u2);
+            $("#score_s").text(score_s);
+            $("#score_k").text(score_k);
             var length=counts.length;
             for(var i=0;i<length;i++){
                 if(counts[i]!=0){

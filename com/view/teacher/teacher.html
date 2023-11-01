@@ -353,6 +353,7 @@
                     </div>
                   </form>
                 </div>
+                <!-- 查询学生成绩 -->
                 <div class="student_select_information_list panel5"> 
                   <div>
           
@@ -362,6 +363,7 @@
                 </div>
                 <!-- 增加学生成绩 -->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
                   <div class="student_select_information_list panel6" style="width: 80%;">
                     <div>
                         <ul class="list-group studentItem" >
@@ -443,6 +445,25 @@
                   </tbody>
                   </table>
                 </div>
+                <div class="student_select_information_list panel5">
+                    <table class="table table-hover text-center">
+                      <thead>
+                          <tr style="background-color:  #337ab7; color: white;">
+                            <th class="text-center" style="background-color: green;">成绩分析</th>
+                            <th class="text-center">成绩均值</th><th class="text-center">成绩方差</th><th class="text-center">成绩偏度</th><th class="text-center">成绩峰值</th>
+                            <th class="text-center" style="background-color: darkgray;">收起</th>
+                          </tr>
+                      </thead>
+                      <tbody id="student_information_item" id="score_analysis">
+                      </tbody>
+                            <tr>
+                              <td style="color:chocolate;">非分组计算</td><td id="score_u1"></td><td id="score_u2"></td><td id="score_s"></td><td id="score_k"></td>
+                            </tr>
+                            <tr>
+                              <td style="color:chocolate;">分组计算</td><td id="score_group_u1"></td><td id="score_group_u2"></td><td id="score_group_s"></td><td id="score_group_k"></td>
+                            </tr>
+                    </table>  
+                </div>
                 <div class="student_select_echarts_p5_1 panel5">
                             图表区
                 </div>
@@ -459,7 +480,7 @@
                   <tbody id="student_information_item_p6_1">
                   </tbody>
                   </table>
-              </div>
+                </div>
             </div>
             </div> 
           </div>
