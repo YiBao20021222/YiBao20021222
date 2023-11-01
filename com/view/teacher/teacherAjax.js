@@ -651,7 +651,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
                 */
             //初始化
             var zhiBiaoShuoMing={
-                fengzhi:["不容易出现断层","容易出现断层"],
+                fengzhi:["呈现中间和两边齐平,不容易出现断层","呈现中间高和两边低,容易出现断层"],
                 junzhi:["差","良","优"],
                 piandu:["左偏","不偏","右偏"]
             }
