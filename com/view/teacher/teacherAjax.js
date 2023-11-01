@@ -854,19 +854,23 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
     });
     e.preventDefault();
  });
+ var SCORE_ANALYSIS_OPEN_CLOSE=null;
  $(".score_analysis_open_close").click(function (e) {
-    var score_analysis=$("#score_analysis");
-    var target=$(e.target);
-    console.log(target.text());
-    console.log(score_analysis);
-    if(target.text()=="收起"){
-        score_analysis.fadeOut();
-        target.text("打开");
-    }else{
-        score_analysis.fadeIn();
-        target.text("收起")
-    }
-    e.preventDefault();
+    clearTimeout(SCORE_ANALYSIS_OPEN_CLOSE);
+    SCORE_ANALYSIS_OPEN_CLOSE=setTimeout(() => {
+        var score_analysis=$("#score_analysis");
+        var target=$(e.target);
+        console.log(target.text());
+        console.log(score_analysis);
+        if(target.text()=="收起"){
+             score_analysis.stop().fadeOut();
+             target.text("打开");
+        }else{
+                score_analysis.stop().fadeIn();
+                target.text("收起")
+        }
+        e.preventDefault();
+    }, 400);
  });
 $(".score_analysis_open_close").hover(function (e) {
         // over
