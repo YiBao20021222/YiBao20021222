@@ -112,4 +112,7 @@
   .student_select_box form{
     display: none;
   }
+  .select-item-box{
+    display: none;
+  }
   

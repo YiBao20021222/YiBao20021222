@@ -56,9 +56,11 @@ router.get('/SQL_USER_LOGIN', (req, res) => {
     con.query(SQL_USER_LOGIN,data,(err,result)=>{
         if(err) {
             console.log(err.message);
+            con.destroy()
             return false;
         };
         res.send(result);
+        con.destroy()
         return  true;
     });
     }
@@ -87,9 +89,11 @@ router.post('/STUDENT_SELECT', (req, res) => {
     con.query(STUDENT_SELECT,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
     
@@ -114,9 +118,11 @@ router.post('/TEACHER_SELECT_STUDENT', (req, res) => {
     con.query(TEACHER_SELECT_STUDENT,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
     
@@ -141,12 +147,13 @@ router.post('/STUDENT_EXISTS', (req, res) => {
     con.query(STUDENT_EXISTS,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
-    
 })
 router.post('/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION', (req, res) => {
     //数据库连接
@@ -168,12 +175,13 @@ router.post('/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION', (req, res) => {
     con.query(TEACHER_SELECT_STUDENT_NORMAL_INFORMATION,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
-    
 })
 router.post('/STUDENT_INSERT', (req, res) => {
     //数据库连接
@@ -198,9 +206,11 @@ router.post('/STUDENT_INSERT', (req, res) => {
     con.query(STUDENT_INSERT,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
     
@@ -225,9 +235,11 @@ router.post('/STUDENT_DELETE', (req, res) => {
     con.query(STUDENT_DELETE,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
     
@@ -253,12 +265,13 @@ router.post('/STUDENT_ALTER_PASS', (req, res) => {
     con.query(STUDENT_ALTER_PASS,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
-    
 })
 router.post('/STUDENT_ALTER_S_NAME', (req, res) => {
     //数据库连接
@@ -281,12 +294,13 @@ router.post('/STUDENT_ALTER_S_NAME', (req, res) => {
     con.query(STUDENT_ALTER_S_NAME,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
-    
 })
 router.post('/STUDENT_ALTER_CLASS', (req, res) => {
     //数据库连接
@@ -313,12 +327,13 @@ router.post('/STUDENT_ALTER_CLASS', (req, res) => {
     con.query(STUDENT_ALTER_CLASS,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
-    
 })
 router.post('/CLASS_EXISTS', (req, res) => {
     //数据库连接
@@ -339,9 +354,11 @@ router.post('/CLASS_EXISTS', (req, res) => {
     con.query(CLASS_EXISTS,data,(err,result)=>{
         if(err) {
             console.log(err.message)
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
     
@@ -370,9 +387,11 @@ router.post('/STUDENT_ALTER_SCORE', (req, res) => {
     con.query(STUDENT_ALTER_SCORE,data,(err,result)=>{
         if(err) {
             console.log(err.message);
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     });
     
@@ -391,9 +410,11 @@ router.post('/TEACHER_EXISTS',(req,res)=>{
     con.query(TEACHER_EXISTS,data,(err,result)=>{
         if(err) {
             console.log(err.message);
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     })
 });
@@ -411,9 +432,11 @@ router.post('/TEACHER_HAVE_STUDENT',(req,res)=>{
     con.query(TEACHER_HAVE_STUDENT,data,(err,result)=>{
         if(err) {
             console.log(err.message);
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     })
 });
@@ -433,9 +456,11 @@ router.post('/TEACHER_APPROVE',(req,res)=>{
     con.query(TEACHER_APPROVE,data,(err,result)=>{
         if(err) {
             console.log(err.message);
+            con.destroy()
             return false
         };
         res.send(result);
+        con.destroy()
         return true
     })
 });
@@ -452,9 +477,11 @@ router.post('/SCORE_ADD',(req,res)=>{
     con.query(SCORE_ADD,data,(err,result)=>{
         if(err){
             console.log(err.message);
+            con.destroy()
             return false
         }
         res.send(result);
+        con.destroy()
         return true
     })
 });
@@ -469,9 +496,11 @@ router.post("/SCORE_ADD_ABLE",(req,res)=>{
     con.query(SCORE_ADD_ABLE,data,(err,result)=>{
         if(err){
             console.log(err.message);
+            con.destroy()
             return false
         }
         res.send(result);
+        con.destroy()
         return true
     })
 
