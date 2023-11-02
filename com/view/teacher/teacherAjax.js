@@ -145,43 +145,43 @@ $(".SQL_USER_LOGIN").submit(function (e) {
         }
     });
 });
-var timeStudentExists=null;
-$(".STUDENT_EXISTS input").on("keyup", function (e) {
-    clearTimeout(timeStudentExists);
-    timeStudentExists=setTimeout(function(){
-        var student_id=$(e.target).val();
-        var data=`student_id=${student_id}`;
-        $.ajax({
-            type: "post",
-            url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
-            data: data,
-            success: function (response) {
-            var li=$(e.target).parent().parent().parent();
-            var value=response[0]['key'];
-                if(value){
-                    $($(e.target).prev().prev()).css("background","green").text("pass");
-                    var fadein=".panel"+li.attr("index");
-                    if(fadein==".panel2"){
-                        $(fadein).children(".input-group-submit").children("button").prop("disabled","false");
-                    }else{
-                        $(fadein).children(".input-group-submit").children("button").prop("disabled","");
-                    }
-                }else{
-                    $($(e.target).prev().prev()).css("background","red").text("danger");
-                    var fadeout=".panel"+li.attr("index");
-                    if(fadeout==".panel2"){
-                        $(fadeout).children(".input-group-submit").children("button").prop("disabled","");
-                    }else{
-                        $(fadeout).children(".input-group-submit").children("button").prop("disabled","false");
-                    }
+// var timeStudentExists=null;
+// $(".STUDENT_EXISTS input").on("keyup", function (e) {
+//     clearTimeout(timeStudentExists);
+//     timeStudentExists=setTimeout(function(){
+//         var student_id=$(e.target).val();
+//         var data=`student_id=${student_id}`;
+//         $.ajax({
+//             type: "post",
+//             url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
+//             data: data,
+//             success: function (response) {
+//             var li=$(e.target).parent().parent().parent();
+//             var value=response[0]['key'];
+//                 if(value){
+//                     $($(e.target).prev().prev()).css("background","green").text("pass");
+//                     var fadein=".panel"+li.attr("index");
+//                     if(fadein==".panel2"){
+//                         $(fadein).children(".input-group-submit").children("button").prop("disabled","false");
+//                     }else{
+//                         $(fadein).children(".input-group-submit").children("button").prop("disabled","");
+//                     }
+//                 }else{
+//                     $($(e.target).prev().prev()).css("background","red").text("danger");
+//                     var fadeout=".panel"+li.attr("index");
+//                     if(fadeout==".panel2"){
+//                         $(fadeout).children(".input-group-submit").children("button").prop("disabled","");
+//                     }else{
+//                         $(fadeout).children(".input-group-submit").children("button").prop("disabled","false");
+//                     }
                    
-                }
-            }
+//                 }
+//             }
             
-        });
-    },1000)
+//         });
+//     },1000)
     
-});
+// });
 
 $(".STUDENT_EXISTS").submit(function (e) { 
     var data=$(e.target).serialize();
@@ -526,8 +526,8 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
         sortOrder: "asc",                   //排序方式
         sidePagination: "sever",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber: 1,                      //初始化加载第一页，默认第一页
-        pageSize: 10,                       //每页的记录行数（*）
-        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        pageSize: 15,                       //每页的记录行数（*）
+        pageList: [15, 25, 50, 100],        //可供选择的每页的行数（*）
         search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
         strictSearch: true,
         showColumns: true,                  //是否显示所有的列

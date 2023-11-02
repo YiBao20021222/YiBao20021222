@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../jquery-min.js"> </script>
+    <link rel="stylesheet" href="../bootstrap-3.4.1//bootstrap-3.4.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../bootstrap-table-develop/bootstrap-table-develop/dist/bootstrap-table.css">
+    <script src="../bootstrap-table-develop/bootstrap-table-develop/dist/bootstrap-table.js" ></script>
+    <script src="../bootstrap-3.4.1/bootstrap-3.4.1/dist/js/templat-web.js"></script>
+    <script src="../../../node_modules/echarts/dist/echarts.js"></script>
+    <script src="../../../node_modules/default-passive-events/dist/index.js"></script>
+    <link rel="stylesheet" href="manager.css">
+    <script type="text/html" id="p1-table1">
+        <tr>
+          <td>{{student_id}}</td>
+          <td>{{student_name}}</td>
+          <td>{{class_type}}</td>
+          <td>{{teacher_name}}</td>
+          <td>{{score}}</td>
+        </tr>
+    </script>
+    <script type="text/html" id="p2-table1">
+        <tr>
+       <td>{{student_id}}</td>
+       <td>{{student_name}}</td>
+       <td>{{student_password}}</td>
+ 
+     </tr>
+   </script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="panel panel-primary">
+          <div class="panel-heading">
+                <h3 class="panel-title">管理员系统</h3>
+          </div>
+          <div class="panel-body">
+                <!-- 分区一 -->
+                    
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 hide1">
+                        <div class="manager-select-box">
+                            <ul>
+                              <!-- 查询学生成绩 -->
+                              <li index="1">
+                                <div class="menu">
+                                  <h4 class="menu-title">查询学生成绩---------</h4>
+                                  <span class="badge" id="badge1">open</span>
+                                </div>
+                                <form action="" class="form-information MANAGER_SELECT_STUDENT">
+                                    <div class="input-group input-information-box" >
+                                      <input type="text" class="form-control" name="student_id" placeholder="账号" id="INPUT_MANAGER_SELECT_STUDENT_ID">
+                                    </div>
+                                    <div class="input-group-submit">
+                                        <button type="submit" class="btn btn-primary">搜索信息</button>
+                                    </div>
+                                </form>
+                              </li>
+                              <!-- 增加学生 -->
+                              <li index="2">
+                                <div class="menu">
+                                  <h4 class="menu-title">增加学生---------</h4>
+                                  <span class="badge" id="badge2">open</span>
+                                </div>
+                                <form action="" class="form-information STUDENT_EXISTS" >
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:red;">danger</span>
+                                    <span style="float: left; margin-top: 5px;">学生账号是否存在标志：</span>
+                                    <input type="text" class="form-control" name="student_id" placeholder="账号是否存在" id="INPUT_STUDENT_INSERT_ID">
+                                  </div>
+                                  <div class="input-group-submit" id="MANAGER_SELECT_STUDENT_NORMAL_INFORMATION">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 删除学生 -->
+                              <li index="3">
+                                <div class="menu">
+                                  <h4 class="menu-title">删除学生---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information STUDENT_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:red;">danger</span>
+                                    <span style="float: left; margin-top: 5px;">学生账号是否存在标志：</span>
+                                    <input type="text" class="form-control input3" name="student_id" placeholder="账号是否存在" id="INPUT_STUDENT_DELETE_ID">
+                                  </div>
+                                  <div class="input-group-submit  TEACHER_SELECT_STUDENT_NORMAL_INFORMATION">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 修改学生 -->
+                              <li index="4">
+                                <div class="menu">
+                                  <h4 class="menu-title">修改学生---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information STUDENT_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:red;">danger</span>
+                                    <span style="float: left; margin-top: 5px;">学生账号是否存在标志：</span>
+                                    <input type="text" class="form-control input4" name="student_id" placeholder="账号是否存在"  id="INPUT_STUDENT_ALTER_ID">
+                                  </div>
+                                  <div class="input-group-submit  TEACHER_SELECT_STUDENT_BIG_INFORMATION">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 增加学生成绩 -->
+                              <li index="5">
+                                <div class="menu">
+                                  <h4 class="menu-title">增加成绩---------</h4>
+                                  <span class="badge" id="badge5">open</span>
+                                </div>
+                                <form action="" class="form-information TEACHER_EXISTS_ID_PAS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:red;">danger</span>
+                                    <span style="float: left; margin-top: 5px;">管理认证标志：</span>
+                                    <input type="text" class="form-control" name="teacher_id" placeholder="管理员账号"  id="INPUT_MANAGER_EXISTS_ID_PAS_ID">
+                                    <input type="text" class="form-control" name="teacher_password" placeholder="管理员密码"  id="INPUT_MANAGER_EXISTS_ID_PAS_PAS">
+                                  </div>
+                                  <div class="input-group-submit  TEACHER_ADD_STUDENT_SCORE">
+                                      <button type="submit" class="btn btn-primary">认证</button>
+                                  </div>
+                                </form>
+                            </li>
+                            </ul>
+                          </div>
+                    </div>
+                    
+                <!-- 分区二 -->
+                    
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 hide2">
+                        <!-- 查找指定学生成绩 -->
+                        <div class="information-table-box panel1 col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                            <table class="table table-hover text-center">
+                            <thead>
+                                <tr style="background-color: #337ab7; color: white;;">
+                                    <th class="text-center" style="background-color: green;">学生学号</th><th class="text-center">学生姓名</th><th class="text-center">科目</th><th class="text-center">老师</th><th class="text-center">成绩</th>
+                                </tr>
+                            </thead>
+                            <tbody class="information-p1-table1-tbody" id="p1-table1">
+                            </tbody>
+                            </table>
+                        </div>
+                        <!-- 增加学生 -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="student_select_information_list panel2 " style="width: 75%;">
+                              <div>
+                                  <ul class="list-group studentItem">
+                                      <li class="listItem" index="1">
+                                          
+                                          <span class="badge" style="float: left;">prev</span>
+                                          
+                                          <h7 class="text-center">增加学生</h7>
+                                          
+                                          <span class="badge" style="float: right;">next</span>
+                                          
+                                      </li>
+                                  </ul>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" index='1'>
+                            <form action="" class="form-information panel2">
+                              <div class="input-group input-information-box">
+                                
+                                <input type="text" class="form-control" name="student_id" placeholder="姓名" id="INPUT_STUDENT_INSERT_NAME">
+                                <input type="password" class="form-control" name="student_id" placeholder="密码" id="INPUT_STUDENT_INSERT_PASSWORD">
+                              </div>
+                              <div class="input-group-submit">
+                                  <button type="submit" class="btn btn-primary" id="STUDENT_INSERT">增加</button>
+                              </div>
+                            </form>
+                          </div>
+                    </div>
+                    
+                <!-- 分区三 -->
+                    
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 hide3">
+                        <div class="panel1" id="echarts-p1-1">
+                                    图表区
+                        </div>
+                        <div class="panel1" id="echarts-p1-2">
+                                    图表区
+                        </div>
+                        <div class="information-table-box panel2 col-xs-10 col-sm-10 col-md-10 col-lg-10" >
+                            <table class="table table-hover text-center">
+                            <thead>
+                                <tr style="background-color: #337ab7; color: white;">
+                                    <th class="text-center" style="background-color: green;">学生学号</th><th class="text-center">学生姓名</th><th class="text-center">学生密码</th>
+                                </tr>
+                            </thead>
+                            <tbody class="information-p2-table1-tbody" id="p2-table1">
+
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+          </div>
+    </div>
+    <script src="../addlistener.js"></script>
+    <script src="managerAjax.js"></script>
+</body>
+</html>
