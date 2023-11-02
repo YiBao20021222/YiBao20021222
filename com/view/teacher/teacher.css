@@ -71,10 +71,6 @@
   .student_select_box form{
     display: none;
   }
-  .table-all-student-information div {
-    height: 40px; 
-    overflow: visible;
-  }
   .select-item-box {
     display: inline-block;
   }
