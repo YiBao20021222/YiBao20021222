@@ -147,7 +147,7 @@ $(".STUDENT_EXISTS").submit(function (e) {
         
     });
 });
-$("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) { 
+$("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) { 
     var input=$("#INPUT_STUDENT_INSERT_ID");
     var data="student_id="+input.val();
     $.ajax({
@@ -156,8 +156,24 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
       data: data,
       success: function (response) {
         var tbody=$(".information-p2-table1-tbody");
-        console.log(tbody);
         var html=template("p2-table1",response[0]);
+        tbody.html(html);
+
+      }
+    });
+    e.preventDefault();
+    
+  });
+  $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_2 button").click(function (e) { 
+    var input=$("#INPUT_STUDENT_DELETE_ID");
+    var data="student_id="+input.val();
+    $.ajax({
+      type: "post",
+      url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION",
+      data: data,
+      success: function (response) {
+        var tbody=$(".information-p3-table1-tbody");
+        var html=template("p3-table1",response[0]);
         tbody.html(html);
 
       }
@@ -185,3 +201,324 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     e.preventDefault();
     
   });
+  $("#STUDENT_DELETE").click(function (e) { 
+    var student_id=$("#INPUT_STUDENT_DELETE_ID").val();
+    data="student_id="+`${student_id}`,
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_DELETE",
+        data: data,
+        success: function (response) {
+
+        }
+      });
+    e.preventDefault();
+    
+  });
+  $("#STUDENT_ALTER_PASS").click(function (e) { 
+    var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
+    var student_password=$("#INPUT_STUDENT_ALTER_PASS_PASSWORD").val();
+    data={
+        student_password:`${student_password}`,
+        student_id:`${student_id}`
+       
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_PASS",
+        data: data,
+        success: function (response) {
+        }
+      });
+    e.preventDefault();
+    
+  });
+  $("#STUDENT_ALTER_S_NAME").click(function (e) { 
+    var student_name=$("#INPUT_STUDENT_ALTER_S_NAME_NAME").val();
+    var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
+    data={
+        student_name:`${student_name}`,
+        student_id:`${student_id}`
+       
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_S_NAME",
+        data: data,
+        success: function (response) {
+        }
+      });
+    e.preventDefault();
+  });
+  $("#STUDENT_ALTER_CLASS").click(function (e) { 
+    var student_old_class=$("#INPUT_STUDENT_ALTER_CLASS_OLD_CLASS").val();
+    var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
+    var student_new_class=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
+
+    data={
+        student_old_class:`${student_old_class}`,
+        student_id:`${student_id}`,
+        student_new_class:`${student_new_class}`
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_CLASS",
+        data: data,
+        success: function (response) {
+            console.log(response);
+        }
+      });
+    e.preventDefault();
+  });
+  var timeClassExists=null;
+  $("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").on("keyup", function () {
+    clearTimeout(timeClassExists);
+    timeClassExists=setTimeout(() => {
+        var class_type=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
+        data={
+            class_type:`${class_type}`
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").prev().prev().text("pass").css("background","green");
+                }else{
+                    $("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").prev().prev().text("danger").css("background","red")
+                }
+            }
+        });
+    }, 1000);
+  });
+  $("#STUDENT_ALTER_SCORE").click(function (e) {
+    var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
+    var class_type=$("#INPUT_STUDENT_ALTER_SCORE_CLASS_TYPE").val();
+    var score=$("#INPUT_STUDENT_ALTER_SCORE_SCORE").val();
+    data={
+        student_id:`${student_id}`,
+        class_type:`${class_type}`,
+        score:`${score}`
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_SCORE",
+        data: data,
+        success: function (response) {
+        }
+    });
+    e.preventDefault();
+  });
+  $("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS,#INPUT_STUDENT_ALTER_SCORE_CLASS_TYPE").on("keyup", function (e) {
+    clearTimeout(timeClassExists);
+    timeClassExists=setTimeout(() => {
+        var class_type=$(e.target).val();
+        data={
+            class_type:`${class_type}`
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $(e.target).prev().prev().text("pass").css("background","green");
+                }else{
+                    $(e.target).prev().prev().text("danger").css("background","red")
+                }
+            }
+        });
+    }, 1000);
+ });
+ $("#MANAGER_SELECT_STUDENT_BIG_INFORMATION button").click(function (e) { 
+    var input=$(e.target).parent().prev().children("input");
+    var data="student_id="+input.val();
+    $.ajax({
+      type: "post",
+      url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
+      data: data,
+      success: function (response) {
+        var index=$(e.target).parent().parent().parent().attr("index")
+        var table=".panel"+index;
+        var tbody=$(table).children("table").children(".information-p4-table1-tbody");
+        var htmls="";
+        for(var i=0;i<response.length;i++){
+            var html=template("p4-table1",response[i]);
+            htmls=html+htmls;
+        }
+        tbody.html(htmls);
+
+      }
+    });
+    e.preventDefault();
+    
+  });
+  var managerApprove=null;
+$("#INPUT_MANAGER_EXISTS_ID_PAS_ID,#INPUT_MANAGER_EXISTS_ID_PAS_PAS").on("keyup", function (e) {
+    clearTimeout(managerApprove);
+    var managerApprove=setTimeout(() => {
+        var search=$("#INPUT_MANAGER_EXISTS_ID_PAS_ID");
+        var manager_id=search.val();
+        var manager_password=$("#INPUT_MANAGER_EXISTS_ID_PAS_PAS").val();
+        data={
+            manager_id:`${manager_id}`,
+            manager_password:`${manager_password}`
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/MANAGER_APPROVE",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    search.prev().prev().text("pass").css("background","green");
+                }else{
+                    search.prev().prev().text("danger").css("background","red")
+                }
+            }
+        });
+    }, 1000);
+});
+  var STUDENT_SCORE_ADD_ABLE=null;
+  $(".STUDENT_SCORE_ADD").on("keyup",function (e) {
+     clearTimeout(STUDENT_SCORE_ADD_ABLE);
+     STUDENT_SCORE_ADD_ABLE=setTimeout(()=>{
+         var search=$("#INPUT_ADD_SCORE_ID");
+         var student_id=$("#INPUT_ADD_SCORE_ID").val();
+         var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
+         var score=$("#INPUT_ADD_SCORE_SCORE");
+         data={
+             student_id:`${student_id}`,
+             class_type:`${class_type}`,
+         }
+         $.ajax({
+             type: "post",
+             url: TEACHER_URL_HOST_PORT+"/SCORE_ADD_ABLE",
+             data: data,
+             success: function (response) {
+                 var flag=response[0]["key"];
+                 var disable=search.next().text();
+                 setTimeout(()=>{      //解决异步问题
+                     if(flag){
+                         search.prev().prev().text("YES").css("background","red");
+                         //成绩存在
+                         score.prop("disabled","false");
+                         $("#ADD_SCORE").prop("disabled","false");
+                     }else{
+                         search.prev().prev().text("NO").css("background","green")
+                         var ADD_SCORE_TABLE_FLAG=$("#information-p5-table1-tbody").children().length;
+                         if(disable=="YES"&&ADD_SCORE_TABLE_FLAG>0){
+                             //在成绩不存在的前提下,如果科目存在,学生存在
+                             score.prop("disabled","");
+                             $("#ADD_SCORE").prop("disabled","");
+                         }
+                         else if(disable=="NO"||ADD_SCORE_TABLE_FLAG==0){
+                             //在成绩不存在的前提下,如果科目不存在或者学生不存在
+                             score.prop("disabled","false");
+                             $("#ADD_SCORE").prop("disabled","false");
+                         }
+                     }
+                 },100);
+             }
+         });
+         $.ajax({
+             type: "post",
+             url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
+             data: data,
+             success: function (data) {
+                 var items="";
+                 for(var i=0;i<data.length;i++){
+                 var item=template("p5-table1",data[i]);
+                 items=items+item;
+                 }
+                 $("#information-p5-table1-tbody").html(items);
+             }
+         });
+     },1000)
+     e.preventDefault();
+  });
+  $("#MANAGER_ADD_STUDENT_SCORE").click(function (e) {
+    var teacher_id=$("#INPUT_MANAGER_EXISTS_ID_PAS_ID").val();
+    var teacher_password=$("#INPUT_MANAGER_EXISTS_ID_PAS_PAS").val();
+    data={
+        teacher_id:`${teacher_id}`,
+        teacher_password:`${teacher_password}`
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_APPROVE",
+        data: data,
+        success: function (response) {
+            var flag=response[0]["key"];
+            if(flag){
+                $("#ADD_SCORE").css("display","inline-block");
+            }else{
+                $("#ADD_SCORE").css("display","none");
+            }
+        }
+    });
+    e.preventDefault();
+ });
+   var STUDENT_SCORE_ADD_CLASS_EXISTS=null;
+$("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
+    clearTimeout(STUDENT_SCORE_ADD_CLASS_EXISTS);
+    STUDENT_SCORE_ADD_CLASS_EXISTS=setTimeout(()=>{
+        var search=$(e.target);
+        var class_type=search.val();
+        var score=$("#INPUT_ADD_SCORE_SCORE");
+        var data={
+            class_type:`${class_type}`
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    search.prev().prev().text("YES").css("background","red");
+                    score.prop("disabled","false");
+                }else{
+                    search.prev().prev().text("NO").css("background","green")
+                    score.prop("disabled","");
+                }
+            }
+        });
+    })
+});
+$("#ADD_SCORE").click(function (e) {
+    var student_id=$("#INPUT_ADD_SCORE_ID").val();
+    var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
+    var score=$("#INPUT_ADD_SCORE_SCORE").val();
+    data={
+        student_id:`${student_id}`,
+        class_type:`${class_type}`,
+        score:`${score}`
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/SCORE_ADD",
+        data: data,
+        success: function (response) {
+            if(response){
+                $.ajax({
+                    type: "post",
+                    url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
+                    data: data,
+                    success: function (data) {
+                        var items="";
+                        for(var i=0;i<data.length;i++){
+                        var item=template("p5-table1",data[i]);
+                        items=items+item;
+                        }
+                        $("#information-p5-table1-tbody").html(items);
+                    }
+                });
+            }
+        }
+    });
+    e.preventDefault();
+ });

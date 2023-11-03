@@ -145,43 +145,6 @@ $(".SQL_USER_LOGIN").submit(function (e) {
         }
     });
 });
-// var timeStudentExists=null;
-// $(".STUDENT_EXISTS input").on("keyup", function (e) {
-//     clearTimeout(timeStudentExists);
-//     timeStudentExists=setTimeout(function(){
-//         var student_id=$(e.target).val();
-//         var data=`student_id=${student_id}`;
-//         $.ajax({
-//             type: "post",
-//             url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
-//             data: data,
-//             success: function (response) {
-//             var li=$(e.target).parent().parent().parent();
-//             var value=response[0]['key'];
-//                 if(value){
-//                     $($(e.target).prev().prev()).css("background","green").text("pass");
-//                     var fadein=".panel"+li.attr("index");
-//                     if(fadein==".panel2"){
-//                         $(fadein).children(".input-group-submit").children("button").prop("disabled","false");
-//                     }else{
-//                         $(fadein).children(".input-group-submit").children("button").prop("disabled","");
-//                     }
-//                 }else{
-//                     $($(e.target).prev().prev()).css("background","red").text("danger");
-//                     var fadeout=".panel"+li.attr("index");
-//                     if(fadeout==".panel2"){
-//                         $(fadeout).children(".input-group-submit").children("button").prop("disabled","");
-//                     }else{
-//                         $(fadeout).children(".input-group-submit").children("button").prop("disabled","false");
-//                     }
-                   
-//                 }
-//             }
-            
-//         });
-//     },1000)
-    
-// });
 
 $(".STUDENT_EXISTS").submit(function (e) { 
     var data=$(e.target).serialize();
@@ -250,7 +213,6 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         url: TEACHER_URL_HOST_PORT+"/STUDENT_DELETE",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -269,7 +231,6 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_PASS",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -288,7 +249,6 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_S_NAME",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -331,7 +291,6 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_CLASS",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -373,7 +332,6 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
         url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_SCORE",
         data: data,
         success: function (response) {
-            console.log(response);
         }
     });
     e.preventDefault();
@@ -418,7 +376,7 @@ $("#INPUT_TEACHER_EXISTS_ID").on("keyup", function (e) {
                 if(flag){
                     search.prev().prev().text("pass").css("background","green");
                 }else{
-                    search.prev().prev().text("danger").css("background","red")
+                    search.prev().prev().text("danger").css("background","red");
                 }
             }
         });

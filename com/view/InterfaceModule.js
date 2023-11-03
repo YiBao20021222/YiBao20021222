@@ -46,6 +46,7 @@ const  TEACHER_EXISTS="select (select (exists(select * from teacher where teache
 const  TEACHER_HAVE_STUDENT="select * from student_control_system.student_information s right join (select teacher_name from student_control_system.teacher where teacher_id=?) st  on s.teacher_name=st.teacher_name;"
 const  TEACHER_APPROVE="select (select (exists(select * from teacher where teacher_id=? and teacher_password=?))) 'key' ;"
 const  SCORE_ADD_ABLE="select (select (exists(select * from score where student_id=? and class_id=(select class_id from class where class_type=?)))) 'key' "
+const  MANAGER_APPROVE="select (select (exists(select * from manager where manager_id=? and manager_password=?))) 'key' ;"
 router.get('/SQL_USER_LOGIN', (req, res) => {
     //数据库连接
     var con = mysql.createConnection(mysqlLoginDate);
@@ -535,4 +536,25 @@ router.post("/SCORE_ADD_ABLE",(req,res)=>{
     })
 
 })
+router.post("/MANAGER_APPROVE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var manager_id=req.body.manager_id;
+    var manager_password=req.body.manager_password;
+    data=[
+        `${manager_id}`,
+        `${manager_password}`,
+    ]
+    con.query(MANAGER_APPROVE,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+
 module.exports=router;
