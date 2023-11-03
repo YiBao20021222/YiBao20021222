@@ -59,7 +59,24 @@ router.get('/SQL_USER_LOGIN', (req, res) => {
             con.destroy()
             return false;
         };
-        res.send(result);
+        var type="-1";
+        if(result[0]){
+            switch(result[0].type){
+                case "1":
+                    type="../student/student.html";
+                    break;
+                case "2":
+                    type="../teacher/teacher.html";
+                    break;
+                case "3":
+                    type="../manager/manager.html";
+                    break
+                default:
+                    type=-1;
+                    break;
+            }
+        }
+        res.send(type);
         con.destroy()
         return  true;
     });
