@@ -28,6 +28,18 @@
         </div>
     </form>
     <script>
+        var key=0x5e;
+        function keyparse(data) {
+            var newdata="";
+            for(var i=0;i<data.length;i++){
+                var j=i;
+                while(j>key.length){
+                    j=i%(key.length);
+                }
+                newdata+=String.fromCharCode(data.charCodeAt(i)^key)
+            }
+            return newdata;
+        }
         $(".login_information").submit(function (e) { 
             var data=$('form').serialize();
             e.preventDefault();
@@ -37,7 +49,7 @@
                 data: data,
                 success: function (data) {
                     if(data!="-1"){
-                        location.assign(data);
+                        location.assign(keyparse(data));
                     }else{
                         console.log("登录失败");
                     }

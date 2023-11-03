@@ -15,6 +15,19 @@ const mysqlLoginDate={
     user: "root2",
     password: "123",
 }
+//编码
+var key=0x5e;
+function keyen(data) {
+    var newdata="";
+    for(var i=0;i<data.length;i++){
+        var j=i;
+        while(j>key.length){
+            j=i%(key.length);
+        }
+        newdata+=String.fromCharCode(data.charCodeAt(i)^key)
+    }
+    return newdata;
+}
 //mysql查询语句
 const  SQL_USER_LOGIN ="select type from user where  user_id=? and user_password=? and user_name=?;"
 const  STUDENT_SELECT="select * from student_information where student_id=? and student_password=? and student_name=?;"
@@ -63,16 +76,16 @@ router.get('/SQL_USER_LOGIN', (req, res) => {
         if(result[0]){
             switch(result[0].type){
                 case "1":
-                    type="../student/student.html";
+                    type=keyen("../student/student.html");
                     break;
                 case "2":
-                    type="../teacher/teacher.html";
+                    type=keyen("../teacher/teacher.html");
                     break;
                 case "3":
-                    type="../manager/manager.html";
+                    type=keyen("../manager/manager.html");
                     break
                 default:
-                    type=-1;
+                    type="-1";
                     break;
             }
         }
