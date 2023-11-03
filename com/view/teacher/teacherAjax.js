@@ -907,8 +907,6 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
     SCORE_ANALYSIS_OPEN_CLOSE=setTimeout(() => {
         var score_analysis=$("#score_analysis");
         var target=$(e.target);
-        console.log(target.text());
-        console.log(score_analysis);
         if(target.text()=="收起"){
              score_analysis.stop().fadeOut();
              target.text("打开");
