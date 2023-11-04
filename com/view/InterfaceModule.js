@@ -1,7 +1,26 @@
 //模版导入
 const express = require('express');
+var fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+ //编码设置
+ var datastr="";
+ var key=null;
+ function setkey(){
+    fs.readFile('com/view/key.js', function (err,data) {
+        if (err) return console.error(err);
+        datastr=data.toString();
+        dataArray=datastr.split("\n");
+        key=parseInt(Math.floor(Math.random()*100),16);
+        dataArray[0]=`var key=${key}`;
+        datastr=dataArray.join("\n");
+        console.log(key);
+        fs.writeFile('com/view/key.js',datastr, function (err) {
+            if (err) return console.error(err);
+        });
+    });
+ }
+ setkey()
 //路由创建
 const router = express.Router();
 //允许body的使用
@@ -14,19 +33,6 @@ const mysqlLoginDate={
     port: "3306",
     user: "root2",
     password: "123",
-}
-//编码
-var key=0x5e;
-function keyen(data) {
-    var newdata="";
-    for(var i=0;i<data.length;i++){
-        var j=i;
-        while(j>key.length){
-            j=i%(key.length);
-        }
-        newdata+=String.fromCharCode(data.charCodeAt(i)^key)
-    }
-    return newdata;
 }
 //mysql查询语句
 const  SQL_USER_LOGIN ="select type from user where  user_id=? and user_password=? and user_name=?;"
@@ -47,6 +53,10 @@ const  TEACHER_HAVE_STUDENT="select * from student_control_system.student_inform
 const  TEACHER_APPROVE="select (select (exists(select * from teacher where teacher_id=? and teacher_password=?))) 'key' ;"
 const  SCORE_ADD_ABLE="select (select (exists(select * from score where student_id=? and class_id=(select class_id from class where class_type=?)))) 'key' "
 const  MANAGER_APPROVE="select (select (exists(select * from manager where manager_id=? and manager_password=?))) 'key' ;"
+const  CLASS_ADD ="insert into student_control_system.class(class_type) values(?);";
+const  CLASS_HAVE="select * from class;"
+const  DELETE_CLASS="delete from class where class_type=?;"
+var time=null;
 router.get('/SQL_USER_LOGIN', (req, res) => {
     //数据库连接
     var con = mysql.createConnection(mysqlLoginDate);
@@ -68,6 +78,17 @@ router.get('/SQL_USER_LOGIN', (req, res) => {
      * @returns bool 是否搜索成功
      */
     con.query(SQL_USER_LOGIN,data,(err,result)=>{
+        function keyen(data) {
+            var newdata="";
+            for(var i=0;i<data.length;i++){
+                var j=i;
+                while(j>key.length){
+                    j=i%(key.length);
+                }
+                newdata+=String.fromCharCode(data.charCodeAt(i)^key)
+            }
+            return newdata;
+        }
         if(err) {
             console.log(err.message);
             con.destroy()
@@ -545,6 +566,60 @@ router.post("/MANAGER_APPROVE",(req,res)=>{
         `${manager_password}`,
     ]
     con.query(MANAGER_APPROVE,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/CLASS_ADD",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    data=[
+        `${class_type}`,
+    ]
+    con.query(CLASS_ADD,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/CLASS_HAVE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    data=[
+        `${class_type}`,
+    ]
+    con.query(CLASS_HAVE,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/DELETE_CLASS",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    data=[
+        `${class_type}`,
+    ]
+    con.query(DELETE_CLASS,data,(err,result)=>{
         if(err){
             console.log(err.message);
             con.destroy()

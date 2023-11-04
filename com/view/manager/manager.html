@@ -55,6 +55,12 @@
         <td>{{score}}</td>
       </tr>
     </script>
+    <script type="text/html" id="p6-table1">
+      <tr>
+        <td>{{class_id}}</td>
+        <td>{{class_type}}</td>
+      </tr>
+    </script>
     <title>Document</title>
 </head>
 <body>
@@ -146,13 +152,47 @@
                                     <span class="badge" style="float: right; margin-top: 5px; background-color:red;">danger</span>
                                     <span style="float: left; margin-top: 5px;">管理认证标志：</span>
                                     <input type="text" class="form-control"  placeholder="管理员账号"  id="INPUT_MANAGER_EXISTS_ID_PAS_ID">
-                                    <input type="text" class="form-control"  placeholder="管理员密码"  id="INPUT_MANAGER_EXISTS_ID_PAS_PAS">
+                                    <input type="password" class="form-control"  placeholder="管理员密码"  id="INPUT_MANAGER_EXISTS_ID_PAS_PAS">
                                   </div>
                                   <div class="input-group-submit " id="MANAGER_ADD_STUDENT_SCORE">
                                       <button type="submit" class="btn btn-primary">认证</button>
                                   </div>
                                 </form>
-                            </li>
+                              </li>
+                              <!-- 增加科目 -->
+                              <li index="6">
+                                <div class="menu">
+                                  <h4 class="menu-title">增加科目---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information CLASS_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:red;">NO</span>
+                                    <span style="float: left; margin-top: 5px;">学生科目是否存在标志：</span>
+                                    <input type="text" class="form-control" name="student_id" placeholder="科目是否存在" id="INPUT_ADD_CLASS_TYPE">
+                                  </div>
+                                  <div class="input-group-submit CLASS_TYPE_EXISTS">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 删除科目 -->
+                              <li index="7">
+                                <div class="menu">
+                                  <h4 class="menu-title">删除科目---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information CLASS_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:red;">NO</span>
+                                    <span style="float: left; margin-top: 5px;">学生科目是否存在标志：</span>
+                                    <input type="text" class="form-control" name="class_type" placeholder="科目是否存在" id="INPUT_DELETE_CLASS_TYPE">
+                                  </div>
+                                  <div class="input-group-submit CLASS_TYPE_EXISTS">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
                             </ul>
                           </div>
                     </div>
@@ -355,7 +395,66 @@
                             </div>
                           </form>
                         </div>
+                        <!-- 增加科目 -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="select-item-box  panel6" style="width: 80%;">
+                        <div>
+                            <ul class="list-group select-item-list">
+                                <li class="list-Item" index="1">
+                                    
+                                    <span class="badge" style="float: left;">prev</span>
+                                    
+                                    <h7 class="text-center">增加科目</h7>
+                                    
+                                    <span class="badge" style="float: right;">next</span>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
                     </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" index="1">
+                      <form action="" class="form-information panel6">
+                        <div class="input-group  input-information-box">
+                        </div>
+                        <div class="input-group-submit">
+                            <button type="submit" class="btn btn-primary" disabled="false" id="ADD_CLASS">增加</button>
+                        </div>
+                      </form>
+                    </div> 
+                    <!-- 删除科目 -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="select-item-box  panel7" style="width: 80%;">
+                        <div>
+                            <ul class="list-group select-item-list">
+                                <li class="list-Item" index="1">
+                                    
+                                    <span class="badge" style="float: left;">prev</span>
+                                    
+                                    <h7 class="text-center">删除科目</h7>
+                                    
+                                    <span class="badge" style="float: right;">next</span>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" index="1">
+                      <form action="" class="form-information panel7">
+                        <div class="input-group  input-information-box">
+                            <h3>注意不要轻易删除科目,同时会删除关于科目的相关信息,比如和科目相关的成绩</h3>
+                        </div>
+                        <div class="input-group-submit">
+                            <button type="submit" class="btn btn-primary" disabled="false" id="DELETE_CLASS">删除</button>
+                        </div>
+                      </form>
+                    </div> 
+
+
+
+                    </div>
+    
                     
                     
                 <!-- 分区三 -->
@@ -409,6 +508,28 @@
                               </tr>
                           </thead>
                           <tbody id="information-p5-table1-tbody" id="p5-table1">
+                          </tbody>
+                          </table>
+                        </div>
+                        <div class="information-table-box  panel6 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                          <table class="table table-hover text-center">
+                          <thead>
+                              <tr style="background-color: #337ab7; color: white;">
+                              <th  class="text-center" style="background-color: green;">科目编号</th><th  class="text-center" >科目名称</th>
+                              </tr>
+                          </thead>
+                          <tbody id="information-p6-table1-tbody" id="p6-table1">
+                          </tbody>
+                          </table>
+                        </div>
+                        <div class="information-table-box  panel7 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                          <table class="table table-hover text-center">
+                          <thead>
+                              <tr style="background-color: #337ab7; color: white;">
+                              <th  class="text-center" style="background-color: green;">科目编号</th><th  class="text-center" >科目名称</th>
+                              </tr>
+                          </thead>
+                          <tbody id="information-p7-table1-tbody" id="p6-table1">
                           </tbody>
                           </table>
                         </div>

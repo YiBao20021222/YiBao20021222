@@ -265,7 +265,6 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
         url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_CLASS",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -441,15 +440,15 @@ $("#INPUT_MANAGER_EXISTS_ID_PAS_ID,#INPUT_MANAGER_EXISTS_ID_PAS_PAS").on("keyup"
      e.preventDefault();
   });
   $("#MANAGER_ADD_STUDENT_SCORE").click(function (e) {
-    var teacher_id=$("#INPUT_MANAGER_EXISTS_ID_PAS_ID").val();
-    var teacher_password=$("#INPUT_MANAGER_EXISTS_ID_PAS_PAS").val();
+    var manager_id=$("#INPUT_MANAGER_EXISTS_ID_PAS_ID").val();
+    var manager_password=$("#INPUT_MANAGER_EXISTS_ID_PAS_PAS").val();
     data={
-        teacher_id:`${teacher_id}`,
-        teacher_password:`${teacher_password}`
+        manager_id:`${manager_id}`,
+        manager_password:`${manager_password}`
     }
     $.ajax({
         type: "post",
-        url: TEACHER_URL_HOST_PORT+"/TEACHER_APPROVE",
+        url: TEACHER_URL_HOST_PORT+"/MANAGER_APPROVE",
         data: data,
         success: function (response) {
             var flag=response[0]["key"];
@@ -463,7 +462,7 @@ $("#INPUT_MANAGER_EXISTS_ID_PAS_ID,#INPUT_MANAGER_EXISTS_ID_PAS_PAS").on("keyup"
     e.preventDefault();
  });
    var STUDENT_SCORE_ADD_CLASS_EXISTS=null;
-$("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
+$("#INPUT_ADD_SCORE_CLASS_TYPE,#INPUT_ADD_CLASS_TYPE,#INPUT_DELETE_CLASS_TYPE").on("keyup", function (e) {
     clearTimeout(STUDENT_SCORE_ADD_CLASS_EXISTS);
     STUDENT_SCORE_ADD_CLASS_EXISTS=setTimeout(()=>{
         var search=$(e.target);
@@ -482,7 +481,7 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
                     search.prev().prev().text("YES").css("background","red");
                     score.prop("disabled","false");
                 }else{
-                    search.prev().prev().text("NO").css("background","green")
+                    search.prev().prev().text("NO").css("background","green");
                     score.prop("disabled","");
                 }
             }
@@ -517,6 +516,92 @@ $("#ADD_SCORE").click(function (e) {
                         $("#information-p5-table1-tbody").html(items);
                     }
                 });
+            }
+        }
+    });
+    e.preventDefault();
+ });
+ $("#INPUT_ADD_CLASS_TYPE").on("keyup",function (e) {
+    var class_type=$("#INPUT_ADD_CLASS_TYPE").val();
+    data={
+        class_type:`${class_type}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+        data: data,
+        success: function (response) {
+            var flag=response[0]["key"];
+            if(flag){
+                $("#ADD_CLASS").prop("disabled","false");
+            }else{
+                $("#ADD_CLASS").prop("disabled","");
+            }
+        }
+    });
+    e.preventDefault();
+ });
+ $(".CLASS_TYPE_EXISTS button").on("click",function (e) {
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/CLASS_HAVE",
+        success: function (response) {
+            var tbody1=$("#information-p6-table1-tbody");
+            var tbody2=$("#information-p7-table1-tbody");
+            var htmls="";
+            for(var i=0;i<response.length;i++){
+                html=template("p6-table1",response[i]);
+                htmls+=html;
+            }
+            tbody1.html(htmls);
+            tbody2.html(htmls);
+        }
+    });
+    e.preventDefault();
+ });
+ $("#ADD_CLASS").on("click",function (e) {
+    var class_type=$("#INPUT_ADD_CLASS_TYPE").val();
+    data={
+        class_type:`${class_type}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/CLASS_ADD",
+        data: data,
+        success: function (response) {
+        }
+    });
+    e.preventDefault();
+ });
+ $("#DELETE_CLASS").on("click",function (e) {
+    var class_type=$("#INPUT_DELETE_CLASS_TYPE").val();
+    data={
+        class_type:`${class_type}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/DELETE_CLASS",
+        data: data,
+        success: function (response) {
+        }
+    });
+    e.preventDefault();
+ });
+ $("#INPUT_DELETE_CLASS_TYPE").on("keyup",function (e) {
+    var class_type=$("#INPUT_DELETE_CLASS_TYPE").val();
+    data={
+        class_type:`${class_type}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+        data: data,
+        success: function (response) {
+            var flag=response[0]["key"];
+            if(flag){
+                $("#DELETE_CLASS").prop("disabled","");
+            }else{
+                $("#DELETE_CLASS").prop("disabled","false");
             }
         }
     });
