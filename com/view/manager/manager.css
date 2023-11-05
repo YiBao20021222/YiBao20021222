@@ -27,6 +27,27 @@
     margin-inline-end: 0px;
     padding-inline-start: 0px;
 }
+/* .hide1 ul li{
+   box-shadow: black;
+} */
+.hide1 ul form{
+  background-color:rgb(245, 245, 245);
+  border-bottom-right-radius: 2%;
+  border: rgb(221, 221, 221) solid 1px;
+  border-top: none;
+}
+.hide1 ul form .input-information-box input{
+  margin-left: 5%;
+  width: 90%;
+  margin-right: 5%;
+}
+/* .hide1 ul form .input-group-submit button{
+  background-color: orange;
+  border: orange;
+} */
+.hide1 ul li .menu{
+  
+}
   .menu{         /*菜单*/
     width: 100%;
     position: relative;
