@@ -61,6 +61,13 @@
         <td>{{class_type}}</td>
       </tr>
     </script>
+    <script type="text/html" id="p8-table1">
+      <tr>
+        <td>{{teacher_id}}</td>
+        <td>{{teacher_name}}</td>
+        <td>{{teacher_password}}</td>
+      </tr>
+    </script>
     <title>Document</title>
 </head>
 <body>
@@ -109,7 +116,7 @@
                               </li>
                               <!-- 删除学生 -->
                               <li index="3">
-                                <div class="menu">
+                                <div class="menu" style="background-color:brown;">
                                   <h4 class="menu-title">删除学生---------</h4>
                                   <span class="badge" id="badge3">open</span>
                                 </div>
@@ -141,10 +148,10 @@
                                   </div>
                                 </form>
                               </li>
-                              <!-- 增加学生成绩 -->
+                              <!-- 增删学生成绩 -->
                               <li index="5">
                                 <div class="menu">
-                                  <h4 class="menu-title">增加成绩---------</h4>
+                                  <h4 class="menu-title">增删成绩---------</h4>
                                   <span class="badge" id="badge5">open</span>
                                 </div>
                                 <form action="" class="form-information MANAGER_EXISTS_ID_PAS">
@@ -178,7 +185,7 @@
                               </li>
                               <!-- 删除科目 -->
                               <li index="7">
-                                <div class="menu">
+                                <div class="menu" style="background-color:brown;">
                                   <h4 class="menu-title">删除科目---------</h4>
                                   <span class="badge" id="badge3">open</span>
                                 </div>
@@ -189,6 +196,40 @@
                                     <input type="text" class="form-control" name="class_type" placeholder="科目是否存在" id="INPUT_DELETE_CLASS_TYPE">
                                   </div>
                                   <div class="input-group-submit CLASS_TYPE_EXISTS">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 增加老师 -->
+                              <li index="8">
+                                <div class="menu">
+                                  <h4 class="menu-title">增加老师---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information TEACHER_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:green;">NO</span>
+                                    <span style="float: left; margin-top: 5px;">老师是否存在标志：</span>
+                                    <input type="text" class="form-control" name="teacher_id" placeholder="老师是否存在" id="INPUT_ADD_TEACHER_ID">
+                                  </div>
+                                  <div class="input-group-submit TEACHER_EXISTS">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 删除老师 -->
+                              <li index="9">
+                                <div class="menu" style="background-color:brown;">
+                                  <h4 class="menu-title">删除老师---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information TEACHER_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:green;">NO</span>
+                                    <span style="float: left; margin-top: 5px;">老师是否存在标志：</span>
+                                    <input type="text" class="form-control" name="teacher_id" placeholder="老师是否存在" id="INPUT_DELETE_TEACHER_ID">
+                                  </div>
+                                  <div class="input-group-submit TEACHER_EXISTS">
                                       <button type="submit" class="btn btn-primary">搜索信息</button>
                                   </div>
                                 </form>
@@ -359,7 +400,7 @@
                             </div>
                           </form>
                         </div>
-                        <!-- 增加学生成绩 -->
+                        <!-- 增删学生成绩 -->
                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 
                           <div class="select-item-box  panel5" style="width: 100%;">
@@ -450,6 +491,63 @@
                         </div>
                       </form>
                     </div> 
+                    <!-- 增加老师 -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="select-item-box  panel8" style="width: 80%;">
+                        <div>
+                            <ul class="list-group select-item-list">
+                                <li class="list-Item" index="1">
+                                    
+                                    <span class="badge" style="float: left;">prev</span>
+                                    
+                                    <h7 class="text-center">增加老师</h7>
+                                    
+                                    <span class="badge" style="float: right;">next</span>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" index="1">
+                      <form action="" class="form-information panel8 "style="width: 80%;">
+                        <div class="input-group  input-information-box " style="width: 100%;">
+                          <input type="text" class="form-control" name="teacher_id" placeholder="姓名" id="INPUT_TEACHER_INSERT_NAME">
+                          <input type="password" class="form-control" name="teacher_password" placeholder="密码" id="INPUT_TEACHER_INSERT_PASSWORD">
+                        </div>
+                        <div class="input-group-submit">
+                            <button type="submit" class="btn btn-primary" disabled="false" id="ADD_TEACHER">增加</button>
+                        </div>
+                      </form>
+                    </div> 
+                    <!-- 删除老师 -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="select-item-box  panel9" style="width: 80%;">
+                        <div>
+                            <ul class="list-group select-item-list">
+                                <li class="list-Item" index="1">
+                                    
+                                    <span class="badge" style="float: left;">prev</span>
+                                    
+                                    <h7 class="text-center">删除老师</h7>
+                                    
+                                    <span class="badge" style="float: right;">next</span>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" index="1">
+                      <form action="" class="form-information panel9 "style="width: 80%;">
+                        <div class="input-group  input-information-box " style="width: 100%;">
+                            <h3>删除老师会删除和老师相关的老师授教表信息</h3>
+                        </div>
+                        <div class="input-group-submit">
+                            <button type="submit" class="btn btn-primary" disabled="false" id="DELETE_TEACHER">删除</button>
+                        </div>
+                      </form>
+                    </div> 
 
 
 
@@ -530,6 +628,28 @@
                               </tr>
                           </thead>
                           <tbody id="information-p7-table1-tbody" id="p6-table1">
+                          </tbody>
+                          </table>
+                        </div>
+                        <div class="information-table-box  panel8 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                          <table class="table table-hover text-center">
+                          <thead>
+                              <tr style="background-color: #337ab7; color: white;">
+                              <th  class="text-center" style="background-color: green;">老师编号</th><th  class="text-center" >老师名称</th><th  class="text-center" >老师密码</th>
+                              </tr>
+                          </thead>
+                          <tbody id="information-p8-table1-tbody" id="p8-table1">
+                          </tbody>
+                          </table>
+                        </div>
+                        <div class="information-table-box  panel9 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                          <table class="table table-hover text-center">
+                          <thead>
+                              <tr style="background-color: #337ab7; color: white;">
+                              <th  class="text-center" style="background-color: green;">老师编号</th><th  class="text-center" >老师名称</th><th  class="text-center" >老师密码</th>
+                              </tr>
+                          </thead>
+                          <tbody id="information-p9-table1-tbody" id="p9-table1">
                           </tbody>
                           </table>
                         </div>

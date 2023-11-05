@@ -189,7 +189,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_INSERT_ID").val();
     var student_name=$("#INPUT_STUDENT_INSERT_NAME").val();
     var student_password=$("#INPUT_STUDENT_INSERT_PASSWORD").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         student_name:`${student_name}`,
         student_password:`${student_password}`
@@ -207,7 +207,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
   });
   $("#STUDENT_DELETE").click(function (e) { 
     var student_id=$("#INPUT_STUDENT_DELETE_ID").val();
-    data="student_id="+`${student_id}`,
+    var data="student_id="+`${student_id}`
     $.ajax({
         type: "post",
         url: TEACHER_URL_HOST_PORT+"/STUDENT_DELETE",
@@ -221,7 +221,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
   $("#STUDENT_ALTER_PASS").click(function (e) { 
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var student_password=$("#INPUT_STUDENT_ALTER_PASS_PASSWORD").val();
-    data={
+    var data={
         student_password:`${student_password}`,
         student_id:`${student_id}`
        
@@ -239,7 +239,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
   $("#STUDENT_ALTER_S_NAME").click(function (e) { 
     var student_name=$("#INPUT_STUDENT_ALTER_S_NAME_NAME").val();
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
-    data={
+    var data={
         student_name:`${student_name}`,
         student_id:`${student_id}`
        
@@ -281,7 +281,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var student_new_class=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
 
-    data={
+    var data={
         student_old_class:`${student_old_class}`,
         student_id:`${student_id}`,
         student_new_class:`${student_new_class}`
@@ -300,7 +300,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     clearTimeout(timeClassExists);
     timeClassExists=setTimeout(() => {
         var class_type=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
-        data={
+        var  data={
             class_type:`${class_type}`
         }
         $.ajax({
@@ -322,7 +322,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var class_type=$("#INPUT_STUDENT_ALTER_SCORE_CLASS_TYPE").val();
     var score=$("#INPUT_STUDENT_ALTER_SCORE_SCORE").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         class_type:`${class_type}`,
         score:`${score}`
@@ -340,7 +340,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     clearTimeout(timeClassExists);
     timeClassExists=setTimeout(() => {
         var class_type=$(e.target).val();
-        data={
+        var data={
             class_type:`${class_type}`
         }
         $.ajax({
@@ -364,7 +364,7 @@ $("#INPUT_TEACHER_EXISTS_ID").on("keyup", function (e) {
     var timeTeacherExists=setTimeout(() => {
         var search=$(e.target);
         var teacher_id=search.val();
-        data={
+        var data={
             teacher_id:`${teacher_id}`
         }
         $.ajax({
@@ -699,7 +699,7 @@ $("#INPUT_TEACHER_EXISTS_ID_PAS_ID,#INPUT_TEACHER_EXISTS_ID_PAS_PAS").on("keyup"
         var search=$("#INPUT_TEACHER_EXISTS_ID_PAS_ID");
         var teacher_id=search.val();
         var teacher_password=$("#INPUT_TEACHER_EXISTS_ID_PAS_PAS").val();
-        data={
+        var data={
             teacher_id:`${teacher_id}`,
             teacher_password:`${teacher_password}`
         }
@@ -721,7 +721,7 @@ $("#INPUT_TEACHER_EXISTS_ID_PAS_ID,#INPUT_TEACHER_EXISTS_ID_PAS_PAS").on("keyup"
 $(".TEACHER_ADD_STUDENT_SCORE").click(function (e) {
     var teacher_id=$("#INPUT_TEACHER_EXISTS_ID_PAS_ID").val();
     var teacher_password=$("#INPUT_TEACHER_EXISTS_ID_PAS_PAS").val();
-    data={
+    var data={
         teacher_id:`${teacher_id}`,
         teacher_password:`${teacher_password}`
     }
@@ -748,7 +748,7 @@ $(".TEACHER_ADD_STUDENT_SCORE").click(function (e) {
         var student_id=$("#INPUT_ADD_SCORE_ID").val();
         var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
         var score=$("#INPUT_ADD_SCORE_SCORE");
-        data={
+        var data={
             student_id:`${student_id}`,
             class_type:`${class_type}`,
         }
@@ -830,7 +830,7 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
     var student_id=$("#INPUT_ADD_SCORE_ID").val();
     var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
     var score=$("#INPUT_ADD_SCORE_SCORE").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         class_type:`${class_type}`,
         score:`${score}`

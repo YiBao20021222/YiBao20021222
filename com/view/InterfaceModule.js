@@ -56,6 +56,9 @@ const  MANAGER_APPROVE="select (select (exists(select * from manager where manag
 const  CLASS_ADD ="insert into student_control_system.class(class_type) values(?);";
 const  CLASS_HAVE="select * from class;"
 const  DELETE_CLASS="delete from class where class_type=?;"
+const  TEACHER_HAVE="select * from teacher;"
+const  TEACHER_ADD="insert into student_control_system.teacher(teacher_id,teacher_name,teacher_password,type) values(?,?,?,2);";
+const  TEACHER_DELETE="delete from teacher where teacher_id=?"
 var time=null;
 router.get('/SQL_USER_LOGIN', (req, res) => {
     //数据库连接
@@ -69,7 +72,7 @@ router.get('/SQL_USER_LOGIN', (req, res) => {
     var user_name=req.query.user_name;
     var user_password=req.query.user_password;
     //构成数组
-    data=[
+    var data=[
         `${user_id}`,
         `${user_password}`,
         `${user_name}`,
@@ -129,7 +132,7 @@ router.post('/STUDENT_SELECT', (req, res) => {
     var student_name=req.body.student_name;
     var student_password=req.body.student_password;
     //构成数组
-    data=[
+    var data=[
         `${student_id}`,
         `${student_password}`,
         `${student_name}`,
@@ -160,7 +163,7 @@ router.post('/TEACHER_SELECT_STUDENT', (req, res) => {
      //url参数提取
     var student_id=req.body.student_id;
     //构成数组
-    data=[
+    var data=[
         `${student_id}`,
     ]
 
@@ -189,7 +192,7 @@ router.post('/STUDENT_EXISTS', (req, res) => {
      //url参数提取
     var student_id=req.body.student_id;
     //构成数组
-    data=[
+    var data=[
         `${student_id}`,
     ]
 
@@ -217,7 +220,7 @@ router.post('/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION', (req, res) => {
      //url参数提取
     var student_id=req.body.student_id;
     //构成数组
-    data=[
+    var data=[
         `${student_id}`,
     ]
 
@@ -247,7 +250,7 @@ router.post('/STUDENT_INSERT', (req, res) => {
     var student_name=req.body.student_name;
     var student_password=req.body.student_password;
     //构成数组
-    data=[
+    var data=[
         `${student_id}`,
         `${student_name}`,
         `${student_password}`
@@ -277,7 +280,7 @@ router.post('/STUDENT_DELETE', (req, res) => {
      //url参数提取
     var student_id=req.body.student_id;
     //构成数组
-    data=[
+    var data=[
         `${student_id}`,
     ]
 
@@ -307,7 +310,7 @@ router.post('/STUDENT_ALTER_PASS', (req, res) => {
     var student_id=req.body.student_id;
     var student_password=req.body.student_password;
     //构成数组
-    data=[
+    var data=[
         `${student_password}`,
         `${student_id}`
     ]
@@ -336,7 +339,7 @@ router.post('/STUDENT_ALTER_S_NAME', (req, res) => {
     var student_id=req.body.student_id;
     var student_name=req.body.student_name;
     //构成数组
-    data=[
+    var data=[
         `${student_name}`,
         `${student_id}`
     ]
@@ -366,7 +369,7 @@ router.post('/STUDENT_ALTER_CLASS', (req, res) => {
     var student_old_class=req.body.student_old_class;
     var student_id=req.body.student_id;
     //构成数组
-    data=[
+    var data=[
         `${student_new_class}`,
         `${student_id}`,
         `${student_old_class}`,
@@ -397,7 +400,7 @@ router.post('/CLASS_EXISTS', (req, res) => {
      //url参数提取
     var class_type=req.body.class_type;
     //构成数组
-    data=[
+    var data=[
         `${class_type}`,
     ]
     /**学生姓名修改
@@ -427,7 +430,7 @@ router.post('/STUDENT_ALTER_SCORE', (req, res) => {
     var class_type=req.body.class_type;
     var score=req.body.score;
     //构成数组
-    data=[
+    var data=[
         `${score}`,
         `${student_id}`,
         `${class_type}`
@@ -456,7 +459,7 @@ router.post('/TEACHER_EXISTS',(req,res)=>{
             console.log("连接成功");
     });
     var teacher_id=req.body.teacher_id;
-    data=[
+    var data=[
         `${teacher_id}`
     ]
     con.query(TEACHER_EXISTS,data,(err,result)=>{
@@ -478,7 +481,7 @@ router.post('/TEACHER_HAVE_STUDENT',(req,res)=>{
             console.log("连接成功");
     });
     var teacher_id=req.body.teacher_id;
-    data=[
+    var data=[
         `${teacher_id}`
     ]
     con.query(TEACHER_HAVE_STUDENT,data,(err,result)=>{
@@ -501,7 +504,7 @@ router.post('/TEACHER_APPROVE',(req,res)=>{
     });
     var teacher_id=req.body.teacher_id;
     var teacher_password=req.body.teacher_password;
-    data=[
+    var data=[
         `${teacher_id}`,
         `${teacher_password}`
     ]
@@ -521,7 +524,7 @@ router.post('/SCORE_ADD',(req,res)=>{
     var class_type=req.body.class_type;
     var student_id=req.body.student_id;
     var score=req.body.score;
-    data=[
+    var data=[
         `${student_id}`,
         `${class_type}`,
         `${score}`
@@ -541,7 +544,7 @@ router.post("/SCORE_ADD_ABLE",(req,res)=>{
     var con=mysql.createConnection(mysqlLoginDate);
     var student_id=req.body.student_id;
     var class_type=req.body.class_type;
-    data=[
+    var data=[
         `${student_id}`,
         `${class_type}`,
     ]
@@ -561,7 +564,7 @@ router.post("/MANAGER_APPROVE",(req,res)=>{
     var con=mysql.createConnection(mysqlLoginDate);
     var manager_id=req.body.manager_id;
     var manager_password=req.body.manager_password;
-    data=[
+    var data=[
         `${manager_id}`,
         `${manager_password}`,
     ]
@@ -580,7 +583,7 @@ router.post("/MANAGER_APPROVE",(req,res)=>{
 router.post("/CLASS_ADD",(req,res)=>{
     var con=mysql.createConnection(mysqlLoginDate);
     var class_type=req.body.class_type;
-    data=[
+    var data=[
         `${class_type}`,
     ]
     con.query(CLASS_ADD,data,(err,result)=>{
@@ -598,7 +601,7 @@ router.post("/CLASS_ADD",(req,res)=>{
 router.post("/CLASS_HAVE",(req,res)=>{
     var con=mysql.createConnection(mysqlLoginDate);
     var class_type=req.body.class_type;
-    data=[
+    var data=[
         `${class_type}`,
     ]
     con.query(CLASS_HAVE,data,(err,result)=>{
@@ -616,10 +619,65 @@ router.post("/CLASS_HAVE",(req,res)=>{
 router.post("/DELETE_CLASS",(req,res)=>{
     var con=mysql.createConnection(mysqlLoginDate);
     var class_type=req.body.class_type;
-    data=[
+    var data=[
         `${class_type}`,
     ]
     con.query(DELETE_CLASS,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_HAVE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    con.query(TEACHER_HAVE,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_ADD",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var teacher_id=req.body.teacher_id;
+    var teacher_name=req.body.teacher_name;
+    var teacher_password=req.body.teacher_password;
+    var data=[
+        `${teacher_id}`,
+        `${teacher_name}`,
+        `${teacher_password}`,
+    ]
+    con.query(TEACHER_ADD,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_DELETE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var teacher_id=req.body.teacher_id;
+    var data=[
+        `${teacher_id}`,
+    ]
+    console.log(data);
+    con.query(TEACHER_DELETE,data,(err,result)=>{
         if(err){
             console.log(err.message);
             con.destroy()

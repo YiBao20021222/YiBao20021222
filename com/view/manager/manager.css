@@ -18,9 +18,15 @@
   .manager-select-box{       /*manger选择框*/
     display: inline-block;
   }
-  ul {
-    list-style-type:none;
-  }
+  .hide1 ul {
+    display: block;
+    list-style-type: none;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
   .menu{         /*菜单*/
     width: 100%;
     position: relative;

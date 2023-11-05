@@ -185,7 +185,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_INSERT_ID").val();
     var student_name=$("#INPUT_STUDENT_INSERT_NAME").val();
     var student_password=$("#INPUT_STUDENT_INSERT_PASSWORD").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         student_name:`${student_name}`,
         student_password:`${student_password}`
@@ -203,7 +203,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
   });
   $("#STUDENT_DELETE").click(function (e) { 
     var student_id=$("#INPUT_STUDENT_DELETE_ID").val();
-    data="student_id="+`${student_id}`,
+    var data="student_id="+`${student_id}`
     $.ajax({
         type: "post",
         url: TEACHER_URL_HOST_PORT+"/STUDENT_DELETE",
@@ -218,7 +218,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
   $("#STUDENT_ALTER_PASS").click(function (e) { 
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var student_password=$("#INPUT_STUDENT_ALTER_PASS_PASSWORD").val();
-    data={
+    vardata={
         student_password:`${student_password}`,
         student_id:`${student_id}`
        
@@ -236,7 +236,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
   $("#STUDENT_ALTER_S_NAME").click(function (e) { 
     var student_name=$("#INPUT_STUDENT_ALTER_S_NAME_NAME").val();
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
-    data={
+    var data={
         student_name:`${student_name}`,
         student_id:`${student_id}`
        
@@ -255,7 +255,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var student_new_class=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
 
-    data={
+    var data={
         student_old_class:`${student_old_class}`,
         student_id:`${student_id}`,
         student_new_class:`${student_new_class}`
@@ -274,7 +274,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
     clearTimeout(timeClassExists);
     timeClassExists=setTimeout(() => {
         var class_type=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
-        data={
+        var data={
             class_type:`${class_type}`
         }
         $.ajax({
@@ -296,7 +296,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var class_type=$("#INPUT_STUDENT_ALTER_SCORE_CLASS_TYPE").val();
     var score=$("#INPUT_STUDENT_ALTER_SCORE_SCORE").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         class_type:`${class_type}`,
         score:`${score}`
@@ -314,7 +314,7 @@ $("#MANAGER_SELECT_STUDENT_NORMAL_INFORMATION_1 button").click(function (e) {
     clearTimeout(timeClassExists);
     timeClassExists=setTimeout(() => {
         var class_type=$(e.target).val();
-        data={
+        var data={
             class_type:`${class_type}`
         }
         $.ajax({
@@ -362,7 +362,7 @@ $("#INPUT_MANAGER_EXISTS_ID_PAS_ID,#INPUT_MANAGER_EXISTS_ID_PAS_PAS").on("keyup"
         var search=$("#INPUT_MANAGER_EXISTS_ID_PAS_ID");
         var manager_id=search.val();
         var manager_password=$("#INPUT_MANAGER_EXISTS_ID_PAS_PAS").val();
-        data={
+        var data={
             manager_id:`${manager_id}`,
             manager_password:`${manager_password}`
         }
@@ -389,7 +389,7 @@ $("#INPUT_MANAGER_EXISTS_ID_PAS_ID,#INPUT_MANAGER_EXISTS_ID_PAS_PAS").on("keyup"
          var student_id=$("#INPUT_ADD_SCORE_ID").val();
          var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
          var score=$("#INPUT_ADD_SCORE_SCORE");
-         data={
+         var data={
              student_id:`${student_id}`,
              class_type:`${class_type}`,
          }
@@ -442,7 +442,7 @@ $("#INPUT_MANAGER_EXISTS_ID_PAS_ID,#INPUT_MANAGER_EXISTS_ID_PAS_PAS").on("keyup"
   $("#MANAGER_ADD_STUDENT_SCORE").click(function (e) {
     var manager_id=$("#INPUT_MANAGER_EXISTS_ID_PAS_ID").val();
     var manager_password=$("#INPUT_MANAGER_EXISTS_ID_PAS_PAS").val();
-    data={
+    var data={
         manager_id:`${manager_id}`,
         manager_password:`${manager_password}`
     }
@@ -467,7 +467,6 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE,#INPUT_ADD_CLASS_TYPE,#INPUT_DELETE_CLASS_TYPE").
     STUDENT_SCORE_ADD_CLASS_EXISTS=setTimeout(()=>{
         var search=$(e.target);
         var class_type=search.val();
-        var score=$("#INPUT_ADD_SCORE_SCORE");
         var data={
             class_type:`${class_type}`
         }
@@ -479,10 +478,8 @@ $("#INPUT_ADD_SCORE_CLASS_TYPE,#INPUT_ADD_CLASS_TYPE,#INPUT_DELETE_CLASS_TYPE").
                 var flag=response[0]["key"];
                 if(flag){
                     search.prev().prev().text("YES").css("background","red");
-                    score.prop("disabled","false");
                 }else{
                     search.prev().prev().text("NO").css("background","green");
-                    score.prop("disabled","");
                 }
             }
         });
@@ -492,7 +489,7 @@ $("#ADD_SCORE").click(function (e) {
     var student_id=$("#INPUT_ADD_SCORE_ID").val();
     var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
     var score=$("#INPUT_ADD_SCORE_SCORE").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         class_type:`${class_type}`,
         score:`${score}`
@@ -523,7 +520,7 @@ $("#ADD_SCORE").click(function (e) {
  });
  $("#INPUT_ADD_CLASS_TYPE").on("keyup",function (e) {
     var class_type=$("#INPUT_ADD_CLASS_TYPE").val();
-    data={
+    var data={
         class_type:`${class_type}`,
     }
     $.ajax({
@@ -561,7 +558,7 @@ $("#ADD_SCORE").click(function (e) {
  });
  $("#ADD_CLASS").on("click",function (e) {
     var class_type=$("#INPUT_ADD_CLASS_TYPE").val();
-    data={
+    var data={
         class_type:`${class_type}`,
     }
     $.ajax({
@@ -575,7 +572,7 @@ $("#ADD_SCORE").click(function (e) {
  });
  $("#DELETE_CLASS").on("click",function (e) {
     var class_type=$("#INPUT_DELETE_CLASS_TYPE").val();
-    data={
+    var data={
         class_type:`${class_type}`,
     }
     $.ajax({
@@ -589,7 +586,7 @@ $("#ADD_SCORE").click(function (e) {
  });
  $("#INPUT_DELETE_CLASS_TYPE").on("keyup",function (e) {
     var class_type=$("#INPUT_DELETE_CLASS_TYPE").val();
-    data={
+    var data={
         class_type:`${class_type}`,
     }
     $.ajax({
@@ -602,6 +599,104 @@ $("#ADD_SCORE").click(function (e) {
                 $("#DELETE_CLASS").prop("disabled","");
             }else{
                 $("#DELETE_CLASS").prop("disabled","false");
+            }
+        }
+    });
+    e.preventDefault();
+ });
+ $("#INPUT_ADD_TEACHER_ID").on("keyup",function (e) {
+    var teacher_id=$(e.target).val();
+    var data={
+        teacher_id:`${teacher_id}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
+        data: data,
+        success: function (response) {
+            var flag=response[0]["key"];
+            if(flag){
+                $(e.target).prev().prev().text("YES").css("background","red");
+                $("#ADD_TEACHER").prop("disabled","false");
+            }else{
+                $(e.target).prev().prev().text("NO").css("background","green");
+                $("#ADD_TEACHER").prop("disabled","");
+            }
+        }
+    });
+    e.preventDefault();
+ });
+ $(".TEACHER_EXISTS button").on("click",function(e){
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_HAVE",
+        success: function (response) {
+            var tbody1=$("#information-p8-table1-tbody");
+            var tbody2=$("#information-p9-table1-tbody");
+            var htmls="";
+            for(var i=0;i<response.length;i++){
+                html=template("p8-table1",response[i]);
+                htmls+=html;
+            }
+            tbody1.html(htmls);
+            tbody2.html(htmls);
+        }
+    });
+    e.preventDefault();
+
+ })
+ $("#ADD_TEACHER").on("click",function(e){
+    var teacher_id=$("#INPUT_ADD_TEACHER_ID").val();
+    var teacher_name=$("#INPUT_TEACHER_INSERT_NAME").val();
+    var teacher_password=$("#INPUT_TEACHER_INSERT_PASSWORD").val();
+    var data={
+        teacher_id:`${teacher_id}`,
+        teacher_name:`${teacher_name}`,
+        teacher_password:`${teacher_password}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_ADD",
+        data: data,
+        success: function (response) {
+            
+        }
+    });
+    e.preventDefault();
+
+ })
+$("#DELETE_TEACHER").on("click",function(e){
+    var teacher_id=$("#INPUT_DELETE_TEACHER_ID").val();
+    var data={
+        teacher_id:`${teacher_id}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_DELETE",
+        data: data,
+        success: function (response) {
+            
+        }
+    });
+    e.preventDefault();
+})
+$("#INPUT_DELETE_TEACHER_ID").on("keyup",function (e) {
+    var teacher_id=$(e.target).val();
+    var data={
+        teacher_id:`${teacher_id}`,
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
+        data: data,
+        success: function (response) {
+            var flag=response[0]["key"];
+            if(flag){
+                $(e.target).prev().prev().text("YES").css("background","red");
+                $("#DELETE_TEACHER").prop("disabled","");
+            }else{
+                $(e.target).prev().prev().text("NO").css("background","green");
+                $("#DELETE_TEACHER").prop("disabled","false");
             }
         }
     });
