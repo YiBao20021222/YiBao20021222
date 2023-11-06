@@ -58,7 +58,15 @@ const  CLASS_HAVE="select * from class;"
 const  DELETE_CLASS="delete from class where class_type=?;"
 const  TEACHER_HAVE="select * from teacher;"
 const  TEACHER_ADD="insert into student_control_system.teacher(teacher_id,teacher_name,teacher_password,type) values(?,?,?,2);";
-const  TEACHER_DELETE="delete from teacher where teacher_id=?"
+const  TEACHER_DELETE="delete from teacher where teacher_id=?;"
+const  TEACHER_ALTER_NAME="update student_control_system.teacher set teacher_name=? where teacher_id=?;"
+const  TEACHER_ALTER_PASSWORD="update student_control_system.teacher set teacher_password=? where teacher_id=?;"
+const  TEACHER_ALTER_TEACHER_CLASS="update student_control_system.teacher_class set class_id=(select class_id from class where class_type=?) where teacher_id=? and class_id=(select class_id from class where class_type=?)"
+const  TEACHER_CLASS_HAVE="select * from (select teacher_id,class_type from teacher_class tc left join class c on tc.class_id=c.class_id) tcc left join teacher t on tcc.teacher_id=t.teacher_id;"
+const  TEACHER_CLASS_APPROVE="select (select (exists(select * from (select teacher_id,class_type from teacher_class tc left join class c on tc.class_id=c.class_id where class_type=?) tcc left join teacher t on tcc.teacher_id=t.teacher_id where t.teacher_id=?))) 'key'"
+const  TEACHER_CLASS_CLASS_USED="select (select(exists(select * from student_control_system.teacher_class where class_id=(select class_id from class where class_type=?)))) 'key';"
+const  TEACHER_CLASS_INSERT="insert into teacher_class(teacher_id,class_id) values(?,(select class_id from class where class_type=?));"
+const  TEACHER_CLASS_DELETE="delete from teacher_class where teacher_id=? and class_id=(select class_id from class where class_type=?);"
 var time=null;
 router.get('/SQL_USER_LOGIN', (req, res) => {
     //数据库连接
@@ -676,7 +684,6 @@ router.post("/TEACHER_DELETE",(req,res)=>{
     var data=[
         `${teacher_id}`,
     ]
-    console.log(data);
     con.query(TEACHER_DELETE,data,(err,result)=>{
         if(err){
             console.log(err.message);
@@ -689,5 +696,163 @@ router.post("/TEACHER_DELETE",(req,res)=>{
     })
 
 })
+router.post("/TEACHER_ALTER_NAME",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var teacher_id=req.body.teacher_id;
+    var teacher_name=req.body.teacher_name;
+    var data=[
+        `${teacher_name}`,
+        `${teacher_id}`,
+    ]
+    con.query(TEACHER_ALTER_NAME,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_ALTER_PASSWORD",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var teacher_id=req.body.teacher_id;
+    var teacher_password=req.body.teacher_password;
+    var data=[
+        `${teacher_password}`,
+        `${teacher_id}`,
+    ]
+    con.query(TEACHER_ALTER_PASSWORD,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_ALTER_TEACHER_CLASS",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var teacher_old_class=req.body.teacher_old_class;
+    var teacher_id=req.body.teacher_id;
+    var teacher_new_class=req.body.teacher_new_class;
+    var data=[
+        `${teacher_new_class}`,
+        `${teacher_id}`,
+        `${teacher_old_class}`
+    ]
+    con.query(TEACHER_ALTER_TEACHER_CLASS,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_CLASS_HAVE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    con.query(TEACHER_CLASS_HAVE,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_CLASS_APPROVE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    var teacher_id=req.body.teacher_id;
+    var data=[
+        `${class_type}`,
+        `${teacher_id}`
+    ]
+    con.query(TEACHER_CLASS_APPROVE,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_CLASS_CLASS_USED",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    var data=[
+        `${class_type}`,
+    ]
+    console.log(data);
+    con.query(TEACHER_CLASS_CLASS_USED,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_CLASS_INSERT",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    var teacher_id=req.body.teacher_id;
+    var data=[
+        `${teacher_id}`,
+        `${class_type}`,
+    ]
+    console.log(data);
+    con.query(TEACHER_CLASS_INSERT,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/TEACHER_CLASS_DELETE",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    var class_type=req.body.class_type;
+    var teacher_id=req.body.teacher_id;
+    var data=[
+        `${teacher_id}`,
+        `${class_type}`,
+    ]
+    console.log(data);
+    con.query(TEACHER_CLASS_DELETE,data,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+
 
 module.exports=router;
