@@ -518,24 +518,29 @@ $("#ADD_SCORE").click(function (e) {
     });
     e.preventDefault();
  });
+ var inputAddClassType=null;
  $("#INPUT_ADD_CLASS_TYPE").on("keyup",function (e) {
-    var class_type=$("#INPUT_ADD_CLASS_TYPE").val();
-    var data={
-        class_type:`${class_type}`,
-    }
-    $.ajax({
-        type: "post",
-        url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
-        data: data,
-        success: function (response) {
-            var flag=response[0]["key"];
-            if(flag){
-                $("#ADD_CLASS").prop("disabled","false");
-            }else{
-                $("#ADD_CLASS").prop("disabled","");
-            }
+    clearTimeout(inputAddClassType);
+    inputAddClassType=setTimeout(() => {
+        var class_type=$("#INPUT_ADD_CLASS_TYPE").val();
+        var data={
+            class_type:`${class_type}`,
         }
-    });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $("#ADD_CLASS").prop("disabled","false");
+                }else{
+                    $("#ADD_CLASS").prop("disabled","");
+                }
+            }
+        });
+    }, 2000);
+    
     e.preventDefault();
  });
  $(".CLASS_TYPE_EXISTS button").on("click",function (e) {
@@ -584,68 +589,82 @@ $("#ADD_SCORE").click(function (e) {
     });
     e.preventDefault();
  });
+ var inputDeleteClassType=null;
  $("#INPUT_DELETE_CLASS_TYPE").on("keyup",function (e) {
-    var class_type=$("#INPUT_DELETE_CLASS_TYPE").val();
-    var data={
-        class_type:`${class_type}`,
-    }
-    $.ajax({
-        type: "post",
-        url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
-        data: data,
-        success: function (response) {
-            var flag=response[0]["key"];
-            if(flag){
-                $("#DELETE_CLASS").prop("disabled","");
-            }else{
-                $("#DELETE_CLASS").prop("disabled","false");
-            }
+    clearTimeout(inputDeleteClassType);
+    setTimeout(() => {
+        var class_type=$("#INPUT_DELETE_CLASS_TYPE").val();
+        var data={
+            class_type:`${class_type}`,
         }
-    });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $("#DELETE_CLASS").prop("disabled","");
+                }else{
+                    $("#DELETE_CLASS").prop("disabled","false");
+                }
+            }
+        });
+    }, 2000);
+    
     e.preventDefault();
  });
+ var inputAddTeacherId=null;
  $("#INPUT_ADD_TEACHER_ID").on("keyup",function (e) {
-    var teacher_id=$(e.target).val();
-    var data={
-        teacher_id:`${teacher_id}`,
-    }
-    $.ajax({
-        type: "post",
-        url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
-        data: data,
-        success: function (response) {
-            var flag=response[0]["key"];
-            if(flag){
-                $(e.target).prev().prev().text("YES").css("background","red");
-                $("#ADD_TEACHER").prop("disabled","false");
-            }else{
-                $(e.target).prev().prev().text("NO").css("background","green");
-                $("#ADD_TEACHER").prop("disabled","");
-            }
+    clearTimeout(inputAddTeacherId);
+    setTimeout(() => {
+        var teacher_id=$(e.target).val();
+        var data={
+            teacher_id:`${teacher_id}`,
         }
-    });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $(e.target).prev().prev().text("YES").css("background","red");
+                    $("#ADD_TEACHER").prop("disabled","false");
+                }else{
+                    $(e.target).prev().prev().text("NO").css("background","green");
+                    $("#ADD_TEACHER").prop("disabled","");
+                }
+            }
+        });
     e.preventDefault();
+    }, 2000);
+    
  });
+ var inputAlterTeacherId=null;
  $("#INPUT_ALTER_TEACHER_ID").on("keyup",function (e) {
-    var teacher_id=$(e.target).val();
-    var data={
-        teacher_id:`${teacher_id}`,
-    }
-    $.ajax({
-        type: "post",
-        url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
-        data: data,
-        success: function (response) {
-            var flag=response[0]["key"];
-            if(flag){
-                $(e.target).prev().prev().text("YES").css("background","red");
-                $("#TEACHER_ALTER_CLASS,#TEACHER_ALTER_PASS,#TEACHER_ALTER_NAME").prop("disabled","");
-            }else{
-                $(e.target).prev().prev().text("NO").css("background","green");
-                $("#TEACHER_ALTER_CLASS,#TEACHER_ALTER_PASS,#TEACHER_ALTER_NAME").prop("disabled","false");
-            }
+    clearTimeout(inputAlterTeacherId)
+    setTimeout(() => {
+        var teacher_id=$(e.target).val();
+        var data={
+            teacher_id:`${teacher_id}`,
         }
-    });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $(e.target).prev().prev().text("YES").css("background","red");
+                    $("#TEACHER_ALTER_CLASS,#TEACHER_ALTER_PASS,#TEACHER_ALTER_NAME").prop("disabled","");
+                }else{
+                    $(e.target).prev().prev().text("NO").css("background","green");
+                    $("#TEACHER_ALTER_CLASS,#TEACHER_ALTER_PASS,#TEACHER_ALTER_NAME").prop("disabled","false");
+                }
+            }
+        });
+    }, 2000);
     e.preventDefault();
  });
  $(".TEACHER_EXISTS button").on("click",function(e){
@@ -704,26 +723,31 @@ $("#DELETE_TEACHER").on("click",function(e){
     });
     e.preventDefault();
 })
+var inputDeleteTeacherId=null;
 $("#INPUT_DELETE_TEACHER_ID").on("keyup",function (e) {
-    var teacher_id=$(e.target).val();
-    var data={
-        teacher_id:`${teacher_id}`,
-    }
-    $.ajax({
-        type: "post",
-        url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
-        data: data,
-        success: function (response) {
-            var flag=response[0]["key"];
-            if(flag){
-                $(e.target).prev().prev().text("YES").css("background","red");
-                $("#DELETE_TEACHER").prop("disabled","");
-            }else{
-                $(e.target).prev().prev().text("NO").css("background","green");
-                $("#DELETE_TEACHER").prop("disabled","false");
-            }
+    clearTimeout(inputDeleteTeacherId);
+    setTimeout(() => {
+        var teacher_id=$(e.target).val();
+        var data={
+            teacher_id:`${teacher_id}`,
         }
-    });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $(e.target).prev().prev().text("YES").css("background","red");
+                    $("#DELETE_TEACHER").prop("disabled","");
+                }else{
+                    $(e.target).prev().prev().text("NO").css("background","green");
+                    $("#DELETE_TEACHER").prop("disabled","false");
+                }
+            }
+        });
+    }, 2000);
+    
     e.preventDefault();
  });
  $(".TEACHER_CLASS_HAVE button").on("click",function(e){
@@ -778,80 +802,85 @@ $("#TEACHER_ALTER_NAME").on("click",function(e){
     });
     e.preventDefault();
 })
+var inputALterTeacher=null;
 $("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID,#INPUT_ALTER_TEACHER_CLASS_CLASS_TYPE").on("keyup",function (e) {
-    var teacher_id=$("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID").val();
-    var class_type=$("#INPUT_ALTER_TEACHER_CLASS_CLASS_TYPE").val();
-    var data={
-        teacher_id:`${teacher_id}`,
-        class_type:`${class_type}`
-    }
-    $.ajax({
-        type: "post",
-        url: TEACHER_URL_HOST_PORT+"/TEACHER_CLASS_APPROVE",
-        data: data,
-        success: function (response) {
-            var flag=response[0]["key"];
-            if(flag){
-                $("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID").prev().prev().text("YES").css("background","red");
-                //在老师授课存在时
-                $("#TEACHER_CLASS_DELETE").prop("disabled","");
-                $("#TEACHER_CLASS_INSERT").prop("disabled","false");
-
-            }else{
-                $("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID").prev().prev().text("NO").css("background","green");
-                //在老师授课不存在时
-                $("#TEACHER_CLASS_DELETE").prop("disabled","false");
-                $.ajax({
-                    type: "post",
-                    url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
-                    data: data,
-                    success: function (response) {
-                        var flag1=response[0]["key"];
-                        if(flag1){
-                            //老师存在时
-                            $.ajax({
-                                type: "post",
-                                url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
-                                data: data,
-                                success: function (response) {
-                                    var flag2=response[0]["key"];
-                                    console.log()
-                                    if(flag2){
-                                        //课程存在时
-                                        $.ajax({
-                                            type: "post",
-                                            url: TEACHER_URL_HOST_PORT+"/TEACHER_CLASS_CLASS_USED",
-                                            data: data,
-                                            success: function (response) {
-                                                var flag3=response[0]["key"];
-                                                if(!flag3){
-                                                    //没有被占用
-                                                    $("#TEACHER_CLASS_INSERT").prop("disabled","");
-                                                }else{
-                                                    //被占用
-                                                    $("#TEACHER_CLASS_INSERT").prop("disabled","false");
-                                                }
-                                            }
-                                        });
-                                           
-                                    }
-                                    else{
-                                        //课程不存在时
-                                            $("#TEACHER_CLASS_INSERT").prop("disabled","false");
-                                    }
-                                }
-                            });
-
-                        }else{
-                            //老师不存在时
-                            $("#TEACHER_CLASS_INSERT").prop("disabled","false");
-                        }
-                    }
-                });
-
-            }
+    clearTimeout(inputALterTeacher)
+    setTimeout(() => {
+        var teacher_id=$("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID").val();
+        var class_type=$("#INPUT_ALTER_TEACHER_CLASS_CLASS_TYPE").val();
+        var data={
+            teacher_id:`${teacher_id}`,
+            class_type:`${class_type}`
         }
-    });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_CLASS_APPROVE",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    $("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID").prev().prev().text("YES").css("background","red");
+                    //在老师授课存在时
+                    $("#TEACHER_CLASS_DELETE").prop("disabled","");
+                    $("#TEACHER_CLASS_INSERT").prop("disabled","false");
+
+                }else{
+                    $("#INPUT_ALTER_TEACHER_CLASS_TEACHER_ID").prev().prev().text("NO").css("background","green");
+                    //在老师授课不存在时
+                    $("#TEACHER_CLASS_DELETE").prop("disabled","false");
+                    $.ajax({
+                        type: "post",
+                        url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
+                        data: data,
+                        success: function (response) {
+                            var flag1=response[0]["key"];
+                            if(flag1){
+                                //老师存在时
+                                $.ajax({
+                                    type: "post",
+                                    url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+                                    data: data,
+                                    success: function (response) {
+                                        var flag2=response[0]["key"];
+                                        console.log()
+                                        if(flag2){
+                                            //课程存在时
+                                            $.ajax({
+                                                type: "post",
+                                                url: TEACHER_URL_HOST_PORT+"/TEACHER_CLASS_CLASS_USED",
+                                                data: data,
+                                                success: function (response) {
+                                                    var flag3=response[0]["key"];
+                                                    if(!flag3){
+                                                        //没有被占用
+                                                        $("#TEACHER_CLASS_INSERT").prop("disabled","");
+                                                    }else{
+                                                        //被占用
+                                                        $("#TEACHER_CLASS_INSERT").prop("disabled","false");
+                                                    }
+                                                }
+                                            });
+                                            
+                                        }
+                                        else{
+                                            //课程不存在时
+                                                $("#TEACHER_CLASS_INSERT").prop("disabled","false");
+                                        }
+                                    }
+                                });
+
+                            }else{
+                                //老师不存在时
+                                $("#TEACHER_CLASS_INSERT").prop("disabled","false");
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+    }, 2000);
+    
     e.preventDefault();
  });
  $(".TEACHER_CLASS_HAVE button").on("click",function(e){

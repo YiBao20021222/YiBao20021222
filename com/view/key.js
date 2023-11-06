@@ -1,4 +1,4 @@
-var key=147
+var key=40
 function keyparse(data) {
     var newdata="";
     for(var i=0;i<data.length;i++){
