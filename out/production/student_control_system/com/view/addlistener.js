@@ -21,8 +21,6 @@ it.slideDown();
 });
 
 
-
-
 $(".menu .badge").hover(function (e) {
     // over
     $(e.target).css("background-color","gold");
@@ -63,7 +61,7 @@ $(".menu .badge").click(function (e) {
       it.slideUp();
     }
     e.preventDefault();
-    $(".studentItem .badge").hover(function (e) {
+    $(".select-item-list .badge").hover(function (e) {
             // over
             $(e.target).css("background-color","gold");
         }, function (e) {
@@ -71,7 +69,7 @@ $(".menu .badge").click(function (e) {
             $(e.target).css("background-color","#777777");
         }
     );
-    $(".studentItem .badge").click(function (e) { 
+    $(".select-item-list .badge").click(function (e) { 
         e.preventDefault();
         var badge=$(e.target);
         var li=badge.parent();
@@ -109,4 +107,39 @@ $(".menu .badge").click(function (e) {
     
     });
     
+});
+var timeStudentExists=null;
+$(".STUDENT_EXISTS input").on("keyup", function (e) {
+    clearTimeout(timeStudentExists);
+    timeStudentExists=setTimeout(function(){
+        var student_id=$(e.target).val();
+        var data=`student_id=${student_id}`;
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
+            data: data,
+            success: function (response) {
+            var li=$(e.target).parent().parent().parent();
+            var value=response[0]['key'];
+                if(value){
+                    $($(e.target).prev().prev()).css("background","green").text("pass");
+                    var fadein=".panel"+li.attr("index");
+                    if(fadein==".panel2"){
+                        $(fadein).children(".input-group-submit").children("button").prop("disabled","false");
+                    }else{
+                        $(fadein).children(".input-group-submit").children("button").prop("disabled","");
+                    }
+                }else{
+                    $($(e.target).prev().prev()).css("background","red").text("danger");
+                    var fadeout=".panel"+li.attr("index");
+                    if(fadeout==".panel2"){
+                        $(fadeout).children(".input-group-submit").children("button").prop("disabled","");
+                    }else{
+                        $(fadeout).children(".input-group-submit").children("button").prop("disabled","false");
+                    }
+                   
+                }
+            }
+        });
+    },1000)
 });

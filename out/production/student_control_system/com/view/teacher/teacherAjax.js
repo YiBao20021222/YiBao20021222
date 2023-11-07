@@ -1,19 +1,21 @@
-// const { options } = require("../InterfaceModule");
+//全局配置
+var TEACHER_URL_HOST_PORT="http://127.0.0.1:3000" //设置老师的通信协议、地址、端口
 
-// const { number } = require("../echarts");
-var TEACHER_SELECT_STUDENT_TABLE1=null;
-var TEACHER_SELECT_STUDENT_TABLE2=null;
+
+var TEACHER_SELECT_STUDENT_TABLE1=null;   //防抖:学生成绩柱状图 位置: hide3 panle1 
+var TEACHER_SELECT_STUDENT_TABLE2=null;   //防抖:学生成绩雷达图 位置: hide3 panle1
+
 $(".TEACHER_SELECT_STUDENT").submit(function (e) { 
-    /*
-    echerts
-        使用位置
-            1、查询学生 hide3 panle1区域
-
-    */
+// echerts
+    //获得echerts对象学生成绩柱状图,没有则初始化,有则不初始化
+        
         var myChart1= echarts.getInstanceByDom(document.querySelector(".student_select_echarts_p1_1")); //有的话就获取已有echarts实例的DOM节点。
         if(myChart1==null){
             TEACHER_SELECT_STUDENT_TABLE1=echarts.init(document.querySelector(".student_select_echarts_p1_1"));
         }
+
+    //学生成绩柱状图的基本配置初始化
+        
         var TEACHER_SELECT_STUDENT_OPTION_TABLE1={
             title: {
                 text: '学生各科成绩图'
@@ -48,10 +50,16 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                 }
                 ]
         };
+
+    //获得echerts对象获得学生成绩雷达图,没有则初始化,有则不初始化
+
         var myChart2= echarts.getInstanceByDom(document.querySelector(".student_select_echarts_p1_2")); //有的话就获取已有echarts实例的DOM节点。
         if(myChart2==null){
             TEACHER_SELECT_STUDENT_TABLE2=echarts.init(document.querySelector(".student_select_echarts_p1_2"));
         }
+
+    //学生成绩雷达图的基本配置初始化
+
         var TEACHER_SELECT_STUDENT_OPTION_TABLE2={
             title: {
               text: '成绩分析'
@@ -78,41 +86,56 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
               }
             ]
           };
+
+    //获得ajax基本数据配置
     var data=$(e.target).serialize();
     e.preventDefault();
+    //发送ajax请求
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
         data: data,
         success: function (data) {
-            //echarts
-            for(var i=0;i<data.length;i++){
-                var namei=`{"name": "${data[i].class_type}","max": 100}`;
-                TEACHER_SELECT_STUDENT_OPTION_TABLE1.xAxis.data.push(data[i].class_type);
-                TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[0].data.push(data[i].score);
-                TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data[0].value.push(data[i].score);
-                TEACHER_SELECT_STUDENT_OPTION_TABLE2.radar.indicator.push(JSON.parse(namei));
-            }
-            TEACHER_SELECT_STUDENT_TABLE1.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE1);
-            TEACHER_SELECT_STUDENT_TABLE2.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE2);
+                //学生成绩雷达图的基本配置填入数据
+                for(var i=0;i<data.length;i++){
+                    var namei=`{"name": "${data[i].class_type}","max": 100}`;
+                    TEACHER_SELECT_STUDENT_OPTION_TABLE1.xAxis.data.push(data[i].class_type);
+                    TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[0].data.push(data[i].score);
+                    TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data[0].value.push(data[i].score);
+                    TEACHER_SELECT_STUDENT_OPTION_TABLE2.radar.indicator.push(JSON.parse(namei));
+                }
+                if(data.length==0){
+                    TEACHER_SELECT_STUDENT_TABLE2.clear();
+                }else{
+                    TEACHER_SELECT_STUDENT_TABLE2.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE2);
+                }
+                TEACHER_SELECT_STUDENT_TABLE1.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE1);
 
-            //table
-            var items="";
-            for(var i=0;i<data.length;i++){
-              var item=template("student_information_item_template",data[i]);
-              items=items+item;
-            }
-            $("#student_information_item").html(items);
-
+                //table
+                var items="";
+                for(var i=0;i<data.length;i++){
+                var item=template("student_information_item_template",data[i]);
+                items=items+item;
+                }
+                $("#student_information_item").html(items);
+        },
+        error : function(jqXHR, textStatus, errorThrown){
+            console.log(errorThrown.message);
+            TEACHER_SELECT_STUDENT_OPTION_TABLE1.xAxis.data=[];
+            TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[0].data=[];
+            TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data[0].value=[];
+            TEACHER_SELECT_STUDENT_OPTION_TABLE2.radar.indicator=[];
         }
+         
     });
 });
 $(".SQL_USER_LOGIN").submit(function (e) { 
+    //获得ajax基本数据配置
     var data=$(e.target).serialize();
     e.preventDefault();
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:3000/SQL_USER_LOGIN",
+        url: TEACHER_URL_HOST_PORT+"/SQL_USER_LOGIN",
         data: data,
         success: function (data) {
             if(data[0].type==2){
@@ -122,50 +145,13 @@ $(".SQL_USER_LOGIN").submit(function (e) {
         }
     });
 });
-var timeStudentExists=null;
-$(".STUDENT_EXISTS input").on("keyup", function (e) {
-    clearTimeout(timeStudentExists);
-    timeStudentExists=setTimeout(function(){
-        var student_id=$(e.target).val();
-        var data=`student_id=${student_id}`;
-        $.ajax({
-            type: "post",
-            url: "http://127.0.0.1:3000/STUDENT_EXISTS",
-            data: data,
-            success: function (response) {
-            var li=$(e.target).parent().parent().parent();
-            var value=response[0]['key'];
-                if(value){
-                    $($(e.target).prev().prev()).css("background","green").text("pass");
-                    var fadein=".panel"+li.attr("index");
-                    if(fadein==".panel2"){
-                        $(fadein).children(".input-group-submit").children("button").prop("disabled","false");
-                    }else{
-                        $(fadein).children(".input-group-submit").children("button").prop("disabled","");
-                    }
-                }else{
-                    $($(e.target).prev().prev()).css("background","red").text("danger");
-                    var fadeout=".panel"+li.attr("index");
-                    if(fadeout==".panel2"){
-                        $(fadeout).children(".input-group-submit").children("button").prop("disabled","");
-                    }else{
-                        $(fadeout).children(".input-group-submit").children("button").prop("disabled","false");
-                    }
-                   
-                }
-            }
-            
-        });
-    },1000)
-    
-});
 
 $(".STUDENT_EXISTS").submit(function (e) { 
     var data=$(e.target).serialize();
     e.preventDefault();
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_EXISTS",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_EXISTS",
         data: data,
         success: function (response) {
            var value=response[0]['key'];
@@ -185,7 +171,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var data="student_id="+input.val();
     $.ajax({
       type: "post",
-      url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION",
+      url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT_NORMAL_INFORMATION",
       data: data,
       success: function (response) {
         var index=$(e.target).parent().parent().parent().attr("index")
@@ -203,17 +189,16 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_INSERT_ID").val();
     var student_name=$("#INPUT_STUDENT_INSERT_NAME").val();
     var student_password=$("#INPUT_STUDENT_INSERT_PASSWORD").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         student_name:`${student_name}`,
         student_password:`${student_password}`
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_INSERT",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_INSERT",
         data: data,
         success: function (response) {
-          console.log(response);
   
         }
       });
@@ -222,13 +207,12 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
   });
   $("#STUDENT_DELETE").click(function (e) { 
     var student_id=$("#INPUT_STUDENT_DELETE_ID").val();
-    data="student_id="+`${student_id}`,
+    var data="student_id="+`${student_id}`
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_DELETE",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_DELETE",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -237,17 +221,16 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
   $("#STUDENT_ALTER_PASS").click(function (e) { 
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var student_password=$("#INPUT_STUDENT_ALTER_PASS_PASSWORD").val();
-    data={
+    var data={
         student_password:`${student_password}`,
         student_id:`${student_id}`
        
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_PASS",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_PASS",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -256,17 +239,16 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
   $("#STUDENT_ALTER_S_NAME").click(function (e) { 
     var student_name=$("#INPUT_STUDENT_ALTER_S_NAME_NAME").val();
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
-    data={
+    var data={
         student_name:`${student_name}`,
         student_id:`${student_id}`
        
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_S_NAME",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_S_NAME",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -276,7 +258,7 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var data="student_id="+input.val();
     $.ajax({
       type: "post",
-      url: "http://127.0.0.1:3000/TEACHER_SELECT_STUDENT",
+      url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
       data: data,
       success: function (response) {
         var index=$(e.target).parent().parent().parent().attr("index")
@@ -299,17 +281,16 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var student_new_class=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
 
-    data={
+    var data={
         student_old_class:`${student_old_class}`,
         student_id:`${student_id}`,
         student_new_class:`${student_new_class}`
     }
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_CLASS",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_CLASS",
         data: data,
         success: function (response) {
-            console.log(response);
         }
       });
     e.preventDefault();
@@ -319,12 +300,12 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     clearTimeout(timeClassExists);
     timeClassExists=setTimeout(() => {
         var class_type=$("#INPUT_STUDENT_ALTER_CLASS_NEW_CLASS").val();
-        data={
+        var  data={
             class_type:`${class_type}`
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/CLASS_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -341,18 +322,16 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     var student_id=$("#INPUT_STUDENT_ALTER_ID").val();
     var class_type=$("#INPUT_STUDENT_ALTER_SCORE_CLASS_TYPE").val();
     var score=$("#INPUT_STUDENT_ALTER_SCORE_SCORE").val();
-    data={
+    var data={
         student_id:`${student_id}`,
         class_type:`${class_type}`,
         score:`${score}`
     }
-    console.log(data);
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:3000/STUDENT_ALTER_SCORE",
+        url: TEACHER_URL_HOST_PORT+"/STUDENT_ALTER_SCORE",
         data: data,
         success: function (response) {
-            console.log(response);
         }
     });
     e.preventDefault();
@@ -361,12 +340,12 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
     clearTimeout(timeClassExists);
     timeClassExists=setTimeout(() => {
         var class_type=$(e.target).val();
-        data={
+        var data={
             class_type:`${class_type}`
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/CLASS_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
@@ -383,20 +362,21 @@ $(".TEACHER_SELECT_STUDENT_NORMAL_INFORMATION button").click(function (e) {
 $("#INPUT_TEACHER_EXISTS_ID").on("keyup", function (e) {
     clearTimeout(timeTeacherExists);
     var timeTeacherExists=setTimeout(() => {
-        var teacher_id=$("#INPUT_TEACHER_EXISTS_ID").val();
-        data={
+        var search=$(e.target);
+        var teacher_id=search.val();
+        var data={
             teacher_id:`${teacher_id}`
         }
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:3000/TEACHER_EXISTS",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_EXISTS",
             data: data,
             success: function (response) {
                 var flag=response[0]["key"];
                 if(flag){
-                    $("#INPUT_TEACHER_EXISTS_ID").prev().prev().text("pass").css("background","green");
+                    search.prev().prev().text("pass").css("background","green");
                 }else{
-                    $("#INPUT_TEACHER_EXISTS_ID").prev().prev().text("danger").css("background","red")
+                    search.prev().prev().text("danger").css("background","red");
                 }
             }
         });
@@ -417,7 +397,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
     }
         var TEACHER_HAVE_STUDENT_OPTION_TABLE1={
             title: {
-                text: '学生成绩图'
+                text: '成绩图'
                 },
             tooltip: {
                     trigger: 'axis',
@@ -494,7 +474,7 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
     }
     $("#tablePage").bootstrapTable("destroy");
     $("#tablePage").bootstrapTable({
-        url: "http://127.0.0.1:3000/TEACHER_HAVE_STUDENT",         //请求后台的URL（*）
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_HAVE_STUDENT",         //请求后台的URL（*）
         method:'post',
         queryParams:data,
         striped: true,                      //是否显示行间隔色
@@ -504,8 +484,8 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
         sortOrder: "asc",                   //排序方式
         sidePagination: "sever",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber: 1,                      //初始化加载第一页，默认第一页
-        pageSize: 10,                       //每页的记录行数（*）
-        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        pageSize: 15,                       //每页的记录行数（*）
+        pageList: [15, 25, 50, 100],        //可供选择的每页的行数（*）
         search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
         strictSearch: true,
         showColumns: true,                  //是否显示所有的列
@@ -543,9 +523,15 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
         
         responseHandler: function(res){
              //echarts
+            var score_u1=0;
+            var score_u2=0;
+            var score_s=0;
+            var score_k=0;
             var counts=[0,0,0,0,0,0,0,0,0,0];
             for(var i=0;i<res.length;i++){
                 var score=res[i].score;
+                score_u1+=score;
+                score_u2+=Math.pow(score,2);
                 if(0<=score&&score<10){
                     counts[0]+=1;
                 }
@@ -575,6 +561,84 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
                 }
                 else{
                     counts[9]+=1;
+                }
+            }
+            //非分组
+            score_u1=(Math.floor((score_u1/res.length)*100))/100;
+            score_u2=Math.floor((score_u2/res.length-Math.pow(score_u1,2))*100)/100;
+            for(var i=0;i<res.length;i++){
+                var score=res[i].score;
+                score_s+=Math.pow(score-score_u1,3);
+                score_k+=Math.pow(score-score_u1,4);
+            }
+            score_s=Math.floor(((score_s/res.length)/Math.pow(score_u2,3/2))*100)/100;
+            score_k=Math.floor(((score_k/res.length)/Math.pow(score_u2,2))*100-3)/100;
+            $("#score_u1").text(score_u1);
+            $("#score_u2").text(score_u2);
+            $("#score_s").text(score_s);
+            $("#score_k").text(score_k);
+
+            //分组
+            var score_group_u1=0;
+            var score_group_u2=0;
+            var score_group_s=0;
+            var score_group_k=0;
+            for(i=0;i<counts.length;i++){
+                score_group_u1+=counts[i]*(i*10+5);
+                score_group_u2+=counts[i]*Math.pow((i*10+5),2);
+            }
+            score_group_u1=Math.floor(score_group_u1/res.length*100)/100;
+            score_group_u2=Math.floor((score_group_u2/res.length-Math.pow(score_group_u1,2))*100)/100;
+            for(i=0;i<counts.length;i++){
+                score_group_s+=counts[i]*Math.pow((i*10+5)-score_group_u1,3);
+                score_group_k+=counts[i]*Math.pow((i*10+5)-score_group_u1,4);
+            }
+            score_group_s=Math.floor(((score_group_s/res.length)/Math.pow(score_group_u2,3/2))*100)/100;
+            score_group_k=Math.floor(((score_group_k/res.length)/Math.pow(score_group_u2,2))*100)/100;
+            $("#score_group_u1").text(score_group_u1);
+            $("#score_group_u2").text(score_group_u2);
+            $("#score_group_s").text(score_group_s);
+            $("#score_group_k").text(score_group_k);
+
+        //指标,及其说明
+            //指标的说明
+                /*
+                    峰值: 一般在0-8内,超过8容易出现断层现象。
+                    均值: 一般在0到60为差,在60-80为良,80-100为优。 
+                    偏度: 一般大于0往右偏,一般小于0往左偏。
+                */
+            //初始化
+            var zhiBiaoShuoMing={
+                fengzhi:["呈现中间和两边齐平,不容易出现断层","呈现中间高和两边低,容易出现断层"],
+                junzhi:["差","良","优"],
+                piandu:["左偏","不偏","右偏"]
+            }
+            //执行
+            if(res.length==0){
+                $("#fengzhi_shuoming").text(" ")
+                $("#junzhi_shuoming").text(" ")
+                $("#piandu_shuoming").text(" ")
+            }else{
+                if(score_k>8){
+                    $("#fengzhi_shuoming").text(zhiBiaoShuoMing.fengzhi[1]);
+                }else{
+                    $("#fengzhi_shuoming").text(zhiBiaoShuoMing.fengzhi[0]);
+                }
+                if(score_u1>=0&&score_u1<60.0){
+                    console.log(score_u1)
+                    $("#junzhi_shuoming").text(zhiBiaoShuoMing.junzhi[0])
+                }else if(80.0>score_u1&&score_group_u1>=60.0){
+                    $("#junzhi_shuoming").text(zhiBiaoShuoMing.junzhi[1])
+                }else{
+                    $("#junzhi_shuoming").text(zhiBiaoShuoMing.junzhi[2])
+                }
+                if(score_k<0){
+                    $("#piandu_shuoming").text(zhiBiaoShuoMing.piandu[0])
+                }
+                else if(score_k==0){
+                    $("#piandu_shuoming").text(zhiBiaoShuoMing.piandu[1])
+                }else{
+                    $("#piandu_shuoming").text(zhiBiaoShuoMing.piandu[2])
                 }
             }
             var length=counts.length;
@@ -628,4 +692,195 @@ $(".TEACHER_HAVE_STUDENT button").on("click", function (e) {
     });
     e.preventDefault();
 });
+var teacherApprove=null;
+$("#INPUT_TEACHER_EXISTS_ID_PAS_ID,#INPUT_TEACHER_EXISTS_ID_PAS_PAS").on("keyup", function (e) {
+    clearTimeout(teacherApprove);
+    var teacherApprove=setTimeout(() => {
+        var search=$("#INPUT_TEACHER_EXISTS_ID_PAS_ID");
+        var teacher_id=search.val();
+        var teacher_password=$("#INPUT_TEACHER_EXISTS_ID_PAS_PAS").val();
+        var data={
+            teacher_id:`${teacher_id}`,
+            teacher_password:`${teacher_password}`
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_APPROVE",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    search.prev().prev().text("pass").css("background","green");
+                }else{
+                    search.prev().prev().text("danger").css("background","red")
+                }
+            }
+        });
+    }, 1000);
+});
+$(".TEACHER_ADD_STUDENT_SCORE").click(function (e) {
+    var teacher_id=$("#INPUT_TEACHER_EXISTS_ID_PAS_ID").val();
+    var teacher_password=$("#INPUT_TEACHER_EXISTS_ID_PAS_PAS").val();
+    var data={
+        teacher_id:`${teacher_id}`,
+        teacher_password:`${teacher_password}`
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/TEACHER_APPROVE",
+        data: data,
+        success: function (response) {
+            var flag=response[0]["key"];
+            if(flag){
+                $("#ADD_SCORE").css("display","inline-block");
+            }else{
+                $("#ADD_SCORE").css("display","none");
+            }
+        }
+    });
+    e.preventDefault();
+ });
+ var STUDENT_SCORE_ADD_ABLE=null;
+ $(".studentScoreAdd").on("keyup",function (e) {
+    clearTimeout(STUDENT_SCORE_ADD_ABLE);
+    STUDENT_SCORE_ADD_ABLE=setTimeout(()=>{
+        var search=$("#INPUT_ADD_SCORE_ID");
+        var student_id=$("#INPUT_ADD_SCORE_ID").val();
+        var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
+        var score=$("#INPUT_ADD_SCORE_SCORE");
+        var data={
+            student_id:`${student_id}`,
+            class_type:`${class_type}`,
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/SCORE_ADD_ABLE",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                var disable=search.next().text();
+                setTimeout(()=>{      //解决异步问题
+                    if(flag){
+                        search.prev().prev().text("YES").css("background","red");
+                        //成绩存在
+                        score.prop("disabled","false");
+                        $("#ADD_SCORE").prop("disabled","false");
+                    }else{
+                        search.prev().prev().text("NO").css("background","green")
+                        var ADD_SCORE_TABLE_FLAG=$("#student_information_item_p6_1").children().length;
+                        if(disable=="YES"&&ADD_SCORE_TABLE_FLAG>0){
+                            //在成绩不存在的前提下,如果科目存在,学生存在
+                            score.prop("disabled","");
+                            $("#ADD_SCORE").prop("disabled","");
+                        }
+                        else if(disable=="NO"||ADD_SCORE_TABLE_FLAG==0){
+                            //在成绩不存在的前提下,如果科目不存在或者学生不存在
+                            score.prop("disabled","false");
+                            $("#ADD_SCORE").prop("disabled","false");
+                        }
+                    }
+                },100);
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
+            data: data,
+            success: function (data) {
+                var items="";
+                for(var i=0;i<data.length;i++){
+                var item=template("student_information_item_template",data[i]);
+                items=items+item;
+                }
+                $("#student_information_item_p6_1").html(items);
+            }
+        });
+    },1000)
+    e.preventDefault();
+ });
+ var STUDENT_SCORE_ADD_CLASS_EXISTS=null;
+$("#INPUT_ADD_SCORE_CLASS_TYPE").on("keyup", function (e) {
+    clearTimeout(STUDENT_SCORE_ADD_CLASS_EXISTS);
+    STUDENT_SCORE_ADD_CLASS_EXISTS=setTimeout(()=>{
+        var search=$(e.target);
+        var class_type=search.val();
+        var score=$("#INPUT_ADD_SCORE_SCORE");
+        var data={
+            class_type:`${class_type}`
+        }
+        $.ajax({
+            type: "post",
+            url: TEACHER_URL_HOST_PORT+"/CLASS_EXISTS",
+            data: data,
+            success: function (response) {
+                var flag=response[0]["key"];
+                if(flag){
+                    search.prev().prev().text("YES").css("background","red");
+                    score.prop("disabled","false");
+                }else{
+                    search.prev().prev().text("NO").css("background","green")
+                    score.prop("disabled","");
+                }
+            }
+        });
+    })
+});
+
+ $("#ADD_SCORE").click(function (e) {
+    var student_id=$("#INPUT_ADD_SCORE_ID").val();
+    var class_type=$("#INPUT_ADD_SCORE_CLASS_TYPE").val();
+    var score=$("#INPUT_ADD_SCORE_SCORE").val();
+    var data={
+        student_id:`${student_id}`,
+        class_type:`${class_type}`,
+        score:`${score}`
+    }
+    $.ajax({
+        type: "post",
+        url: TEACHER_URL_HOST_PORT+"/SCORE_ADD",
+        data: data,
+        success: function (response) {
+            if(response){
+                $.ajax({
+                    type: "post",
+                    url: TEACHER_URL_HOST_PORT+"/TEACHER_SELECT_STUDENT",
+                    data: data,
+                    success: function (data) {
+                        var items="";
+                        for(var i=0;i<data.length;i++){
+                        var item=template("student_information_item_template",data[i]);
+                        items=items+item;
+                        }
+                        $("#student_information_item_p6_1").html(items);
+                    }
+                });
+            }
+        }
+    });
+    e.preventDefault();
+ });
+ var SCORE_ANALYSIS_OPEN_CLOSE=null;
+ $(".score_analysis_open_close").click(function (e) {
+    clearTimeout(SCORE_ANALYSIS_OPEN_CLOSE);
+    SCORE_ANALYSIS_OPEN_CLOSE=setTimeout(() => {
+        var score_analysis=$("#score_analysis");
+        var target=$(e.target);
+        if(target.text()=="收起"){
+             score_analysis.stop().fadeOut();
+             target.text("打开");
+        }else{
+                score_analysis.stop().fadeIn();
+                target.text("收起")
+        }
+        e.preventDefault();
+    }, 400);
+ });
+$(".score_analysis_open_close").hover(function (e) {
+        // over
+        $(e.target).css("background","orange");
+    }, function (e) {
+        // out
+        $(e.target).css("background","darkgray");
+    }
+);
 

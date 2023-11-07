@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
+    <script src="../key.js"></script>
     <script src="../jquery-min.js"></script>
 </head>
 <body>
@@ -36,21 +37,11 @@
                 url: "http://127.0.0.1:3000/SQL_USER_LOGIN",
                 data: data,
                 success: function (data) {
-                    if(data[0]){
-                        switch(data[0].type){
-                            case "1":
-                                location.assign("../student/student.html");
-                                break;
-                            case "2":
-                                location.assign("../teacher/teacher.html");
-                                break;
-                            case "3":
-                                console.log("管理员")
-                                break;
-                            default:
-                                console.log("登录失败")
-                                break;
-                        }
+                    if(data!="-1"){
+                        console.log(key);
+                        console.log(data);
+                        console.log(keyparse(data));
+                        location.assign(keyparse(data));
                     }else{
                         console.log("登录失败");
                     }
