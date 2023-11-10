@@ -101,6 +101,9 @@ $(".MANAGER_SELECT_STUDENT").submit(function (e) {
             for (var i = 0; i < data.length; i++) {
                 if(!map2.has(data[i].class_type.split("(")[0])){
                     map2.set(data[i].class_type.split("(")[0],length);
+                    var namei = `{"name": "${data[i].class_type.split("(")[0]}","max": 100}`;
+                    TEACHER_SELECT_STUDENT_OPTION_TABLE2.radar.indicator.push(JSON.parse(namei));
+                    TEACHER_SELECT_STUDENT_OPTION_TABLE1.xAxis.data.push(data[i].class_type.split("(")[0]);
                     length++;
                 }
             }
@@ -121,17 +124,19 @@ $(".MANAGER_SELECT_STUDENT").submit(function (e) {
                 }else{
                     map1.get(class_count)[map2.get(data[i].class_type.split("(")[0])]=data[i].score;
                 }
-                TEACHER_SELECT_STUDENT_OPTION_TABLE1.xAxis.data.push(data[i].class_type);
-                TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[0].data.push(data[i].score);
-                TEACHER_SELECT_STUDENT_OPTION_TABLE2.radar.indicator.push(JSON.parse(namei));
+                
             }
             var i=0;
             map1.forEach((value,name)=>{
                 // console.log(value);
                 TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data.push({value:[],name:""})
+                TEACHER_SELECT_STUDENT_OPTION_TABLE1.series.push({ name:" ",type: 'bar',data: []})
                 TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data[i].value=value;
+                TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[i].data=value;
                 TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data[i].name=name;
+                TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[i].name=name;
                 TEACHER_SELECT_STUDENT_OPTION_TABLE2.legend.data.push(name);
+                TEACHER_SELECT_STUDENT_OPTION_TABLE1.legend.data.push(name);
                 i++;
             })
             if (data.length == 0) {
