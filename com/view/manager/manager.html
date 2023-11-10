@@ -9,7 +9,7 @@
     <script src="../bootstrap-table-develop/bootstrap-table-develop/dist/bootstrap-table.js" ></script>
     <script src="../bootstrap-3.4.1/bootstrap-3.4.1/dist/js/templat-web.js"></script>
     <script src="../../../node_modules/echarts/dist/echarts.js"></script>
-    <script src="../../../node_modules/default-passive-events/dist/index.js"></script>
+    <script src="../../../node_modules/echarts-simple-transform/dist/ecSimpleTransform.js"></script>
     <link rel="stylesheet" href="manager.css">
     <script type="text/html" id="p1-table1">
         <tr>
@@ -279,6 +279,42 @@
                                     <input type="text" class="form-control" name="teacher_id" placeholder="科目" id="INPUT_ALTER_TEACHER_CLASS_CLASS_TYPE">
                                   </div>
                                   <div class="input-group-submit TEACHER_CLASS_HAVE">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                               <!-- 增删学生受教表 -->
+                               <li index="12">
+                                <div class="menu">
+                                  <h4 class="menu-title">增删学生受教 ---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information TEACHER_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:green;">NO</span>
+                                    <span style="float: left; margin-top: 5px;">学生受教是否存在标志：</span>
+                                    <input type="text" class="form-control" name="teacher_id" placeholder="老师" id="INPUT_ALTER_TEACHER_STUDENT_TEACHER_ID">
+                                    <input type="text" class="form-control" name="teacher_id" placeholder="学生" id="INPUT_ALTER_TEACHER_STUDENT_STDUENT_ID">
+                                  </div>
+                                  <div class="input-group-submit TEACHER_STUDENT_HAVE">
+                                      <button type="submit" class="btn btn-primary">搜索信息</button>
+                                  </div>
+                                </form>
+                              </li>
+                              <!-- 管理员观看老师教学整体情况 -->
+                              <li index="13">
+                                <div class="menu">
+                                  <h4 class="menu-title">老师教学情况---------</h4>
+                                  <span class="badge" id="badge3">open</span>
+                                </div>
+                                <form action="" class="form-information TEACHER_EXISTS">
+                                  <div class="input-group input-information-box">
+                                    <span class="badge" style="float: right; margin-top: 5px; background-color:green;">NO</span>
+                                    <span style="float: left; margin-top: 5px;">管理认证标志：</span>
+                                    <input type="text" class="form-control"  placeholder="管理员账号"  id="INPUT_MANAGER_SEE_TEACHER_EXISTS_ID_PAS_ID">
+                                    <input type="password" class="form-control"  placeholder="管理员密码"  id="INPUT_MANAGER_SEE_TEACHER_EXISTS_ID_PAS_PAS">
+                                  </div>
+                                  <div class="input-group-submit MANAGER_SEE_TEACHERS">
                                       <button type="submit" class="btn btn-primary">搜索信息</button>
                                   </div>
                                 </form>
@@ -732,9 +768,19 @@
                   </table>
                 </div>
 
+                <!-- 增加学生受教表 -->
+
+
+                
+                <div class="panel13" id="echarts-p13-1" style="display: none;">
+                  图表区
+                </div>
+
 
 
                     </div>
+
+                    
     
                     
                     

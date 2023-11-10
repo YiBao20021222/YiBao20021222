@@ -1,4 +1,6 @@
-   
+*{
+  touch-action: pan-y;
+}
   /**
     hide1
         manger选择框
@@ -101,12 +103,17 @@
   #echarts-p1-1{  /* echarts在panel1下的第一个*/
     display: none;
     height: 300px;
-    width: 400px;
+    width: 100%;
   }
   #echarts-p1-2{ /* echarts在panel1下的第二个*/
     display: none;
     height: 300px;
-    width: 400px;
+    width: 100%;
+  }
+  #echarts-p13-1{/* echarts在panel13下的第一个*/
+    display: none;
+    height: 500px;
+    width: 100%;
   }
 
 
