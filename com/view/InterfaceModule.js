@@ -69,6 +69,7 @@ const  TEACHER_CLASS_CLASS_USED="select (select(exists(select * from student_con
 const  TEACHER_CLASS_INSERT="insert into teacher_class(teacher_id,class_id) values(?,(select class_id from class where class_type=?));"
 const  TEACHER_CLASS_DELETE="delete from teacher_class where teacher_id=? and class_id=(select class_id from class where class_type=?);"
 const  SCORE_HAVE="select score,teacher_name,student_name,student_id from student_information";
+const  SCORE_HAVE_INCLUDE_CLASS="select score,teacher_name,student_name,student_id,class_type from student_information";
 var time=null;
 router.get('/SQL_USER_LOGIN', (req, res) => {
     //数据库连接
@@ -863,6 +864,20 @@ router.post("/life",(req,res)=>{
 router.post("/SCORE_HAVE",(req,res)=>{
     var con=mysql.createConnection(mysqlLoginDate);
     con.query(SCORE_HAVE,(err,result)=>{
+        if(err){
+            console.log(err.message);
+            con.destroy()
+            return false
+        }
+        res.send(result);
+        con.destroy()
+        return true
+    })
+
+})
+router.post("/SCORE_HAVE_INCLUDE_CLASS",(req,res)=>{
+    var con=mysql.createConnection(mysqlLoginDate);
+    con.query(SCORE_HAVE_INCLUDE_CLASS,(err,result)=>{
         if(err){
             console.log(err.message);
             con.destroy()
