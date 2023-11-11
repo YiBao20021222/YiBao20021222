@@ -206,7 +206,43 @@ $(".studentSelect").submit(function (e) {
                         }
                         for(var i=1;i<b.length;i++){
                             for(var j=0;j<length;j++){
-                                y[j]+=barv[j]/b[i][j]*a[i][j]/(b.length-1);
+                                if(a[i]){
+                                    var short=barv[j]/b[i][j]*a[i][j]
+                                }
+                                if(short>=10&&short<20){
+                                    short*=0.9
+                                }else if(short>=20&&short<30){
+                                    short*=0.8
+                                }else if(short>=30&&short<40){
+                                    short*=0.7
+                                }else if(short>=40&&short<50){
+                                    short*=0.6
+                                }else if(short>=50&&short<60){
+                                    short*=0.5
+                                }else if(short>=60&&short<70){
+                                    short*=0.4
+                                }else if(short>=70&&short<80){
+                                    short*=0.3
+                                }else if(short>=80){
+                                    short*=0.01
+                                }else if(short<=-10&&short>-20){
+                                    short*=0.9
+                                }else if(short<=-20&&short>-30){
+                                    short*=0.8
+                                }else if(short<=-30&&short>-40){
+                                    short*=0.7
+                                }else if(short<=-40&&short>-50){
+                                    short*=0.6
+                                }else if(short<=-50&&short>-60){
+                                    short*=0.5
+                                }else if(short<=-60&&short>-70){
+                                    short*=0.4
+                                }else if(short<=-70&&short>-80){
+                                    short*=0.3
+                                }else if(short<=-80){
+                                    short*=0.01
+                                }
+                                y[j]+=short/(b.length-1);
                             }
                         }
                         //setoption
@@ -223,18 +259,24 @@ $(".studentSelect").submit(function (e) {
                             STUDENT_SELECT_OPTION_TABLE1.legend.data.push(name);
                             i++;
                         })
-                        STUDENT_SELECT_OPTION_TABLE2.series[0].data.push({value:[],name:""})
-                        STUDENT_SELECT_OPTION_TABLE1.series.push({ name:" ",type: 'bar',data: []})
+                        var flag=true;
                         var data= STUDENT_SELECT_OPTION_TABLE1.series[i-1].data;
                         for(var j=0;j<length;j++){
                             y[j]+=data[j];
+                            if(y[j]<0||y[j]>100){
+                                flag=false;
+                            }
                         }
+                        if(flag){
+                        STUDENT_SELECT_OPTION_TABLE2.series[0].data.push({value:[],name:""})
+                        STUDENT_SELECT_OPTION_TABLE1.series.push({ name:" ",type: 'bar',data: []})
                         STUDENT_SELECT_OPTION_TABLE1.series[i].data=y;
                         STUDENT_SELECT_OPTION_TABLE2.series[0].data[i].value=y;
                         STUDENT_SELECT_OPTION_TABLE1.series[i].name="预期";
                         STUDENT_SELECT_OPTION_TABLE2.series[0].data[i].name="预期";
                         STUDENT_SELECT_OPTION_TABLE1.legend.data.push("预期");
                         STUDENT_SELECT_OPTION_TABLE2.legend.data.push("预期");
+                        }
                         if (data.length == 0) {
                           STUDENT_SELECT_TABLE2.clear();
                         } else {

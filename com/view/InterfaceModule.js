@@ -389,7 +389,6 @@ router.post('/STUDENT_ALTER_CLASS', (req, res) => {
     /**学生姓名修改
      *  @returns bool 是否登录成功
      */
-    console.log(data);
     con.query(STUDENT_ALTER_CLASS,data,(err,result)=>{
         if(err) {
             console.log(err.message)
