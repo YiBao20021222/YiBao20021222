@@ -214,7 +214,7 @@ $(".MANAGER_SELECT_STUDENT").submit(function (e) {
                         }
                         for(var i=1;i<b.length;i++){
                             for(var j=0;j<length;j++){
-                                y[j]+=barv[j]/b[i][j]*a[i][j];
+                                y[j]+=barv[j]/b[i][j]*a[i][j]/(b.length-1);
                             }
                         }
                         //setoption
