@@ -206,6 +206,9 @@ $(".studentSelect").submit(function (e) {
                         }
                         for(var i=1;i<b.length;i++){
                             for(var j=0;j<length;j++){
+                                if(b[i][j]==0){
+                                    b[i][j]=0.1;
+                                }
                                 if(a[i]){
                                     var short=barv[j]/b[i][j]*a[i][j]
                                 }
@@ -259,15 +262,15 @@ $(".studentSelect").submit(function (e) {
                             STUDENT_SELECT_OPTION_TABLE1.legend.data.push(name);
                             i++;
                         })
-                        var flag=true;
                         var data= STUDENT_SELECT_OPTION_TABLE1.series[i-1].data;
                         for(var j=0;j<length;j++){
                             y[j]+=data[j];
-                            if(y[j]<0||y[j]>100){
-                                flag=false;
+                            if(y[j]<0){
+                                y[j]=0;
+                            }else if(y[j]>100){
+                                y[j]=100
                             }
                         }
-                        if(flag){
                         STUDENT_SELECT_OPTION_TABLE2.series[0].data.push({value:[],name:""})
                         STUDENT_SELECT_OPTION_TABLE1.series.push({ name:" ",type: 'bar',data: []})
                         STUDENT_SELECT_OPTION_TABLE1.series[i].data=y;
@@ -276,13 +279,13 @@ $(".studentSelect").submit(function (e) {
                         STUDENT_SELECT_OPTION_TABLE2.series[0].data[i].name="预期";
                         STUDENT_SELECT_OPTION_TABLE1.legend.data.push("预期");
                         STUDENT_SELECT_OPTION_TABLE2.legend.data.push("预期");
-                        }
                         if (data.length == 0) {
                           STUDENT_SELECT_TABLE2.clear();
+                          STUDENT_SELECT_TABLE1.clear();
                         } else {
                           STUDENT_SELECT_TABLE2.setOption(STUDENT_SELECT_OPTION_TABLE2);
+                          STUDENT_SELECT_TABLE1.setOption( STUDENT_SELECT_OPTION_TABLE1);
                         }
-                        STUDENT_SELECT_TABLE1.setOption( STUDENT_SELECT_OPTION_TABLE1);
                     }
             });
               var items="";

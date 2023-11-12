@@ -210,6 +210,9 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                         }
                         for(var i=1;i<b.length;i++){
                             for(var j=0;j<length;j++){
+                                if(b[i][j]==0){
+                                    b[i][j]=0.1;
+                                }
                                 if(a[i]){
                                     var short=barv[j]/b[i][j]*a[i][j]
                                 }
@@ -250,6 +253,7 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                             }
                         }
                         //setoption
+                        console.log(TEACHER_SELECT_STUDENT_OPTION_TABLE2,TEACHER_SELECT_STUDENT_OPTION_TABLE1)
                         var i=0;
                         map1.forEach((value,name)=>{
                             // console.log(value);
@@ -263,18 +267,18 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                             TEACHER_SELECT_STUDENT_OPTION_TABLE1.legend.data.push(name);
                             i++;
                         })
-                        var flag=true;
                         var data=TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[i-1].data;
                         for(var j=0;j<length;j++){
                             y[j]+=data[j];
                         }
                         for(var j=0;j<length;j++){
                             y[j]+=data[j];
-                            if(y[j]<0||y[j]>100){
-                                flag=false;
+                            if(y[j]<0){
+                                y[j]=0;
+                            }else if(y[j]>100){
+                                y[j]=100
                             }
                         }
-                        if(flag){
                         TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data.push({value:[],name:""})
                         TEACHER_SELECT_STUDENT_OPTION_TABLE1.series.push({ name:" ",type: 'bar',data: []})
                         TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[i].data=y;
@@ -283,13 +287,14 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                         TEACHER_SELECT_STUDENT_OPTION_TABLE2.series[0].data[i].name="预期";
                         TEACHER_SELECT_STUDENT_OPTION_TABLE1.legend.data.push("预期");
                         TEACHER_SELECT_STUDENT_OPTION_TABLE2.legend.data.push("预期");
-                        }
                         if (data.length == 0) {
                             TEACHER_SELECT_STUDENT_TABLE2.clear();
+                            TEACHER_SELECT_STUDENT_TABLE1.clear();
                         } else {
                             TEACHER_SELECT_STUDENT_TABLE2.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE2);
+                            TEACHER_SELECT_STUDENT_TABLE1.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE1);
                         }
-                        TEACHER_SELECT_STUDENT_TABLE1.setOption(TEACHER_SELECT_STUDENT_OPTION_TABLE1);
+                       
                     }
             });
 
