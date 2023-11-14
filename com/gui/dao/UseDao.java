@@ -76,7 +76,7 @@ public class UseDao implements dao {
         webBtn.addActionListener(e -> {
             Runtime runtime=Runtime.getRuntime();
             try{
-                runtime.exec("cmd /c node com/view/index/node_submit.js");
+                runtime.exec("cmd /c node com/view/node_submit.js");
                 runtime.exec("cmd /c start com/view/index/index.html");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

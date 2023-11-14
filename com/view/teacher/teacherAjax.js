@@ -183,7 +183,6 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                             b.push(arr);
                             value_prv=value;
                         })
-            
                         for(var i=0;i<length;i++) {
                             barv.push(0)
                         }
@@ -250,6 +249,7 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                                     short*=0.01
                                 }
                                 y[j]+=short/(b.length-1);
+                                console.log(y[i]);
                             }
                         }
                         //setoption
@@ -268,9 +268,6 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                             i++;
                         })
                         var data=TEACHER_SELECT_STUDENT_OPTION_TABLE1.series[i-1].data;
-                        for(var j=0;j<length;j++){
-                            y[j]+=data[j];
-                        }
                         for(var j=0;j<length;j++){
                             y[j]+=data[j];
                             if(y[j]<0){
