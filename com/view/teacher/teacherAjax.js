@@ -249,7 +249,6 @@ $(".TEACHER_SELECT_STUDENT").submit(function (e) {
                                     short*=0.01
                                 }
                                 y[j]+=short/(b.length-1);
-                                console.log(y[i]);
                             }
                         }
                         //setoption
@@ -1067,4 +1066,35 @@ $(".score_analysis_open_close").hover(function (e) {
         $(e.target).css("background","darkgray");
     }
 );
+var timeToggle=null;
+
+$(".Toggle-the-Auxiliary-bar").mousedown(function () { 
+        $(".Toggle-the-Auxiliary-bar").mousemove(function (e) { 
+            var ToggleWidth=(e.pageX)*(0.95);
+            $(".hide1").width(ToggleWidth);
+        });
+
+    
+});
+$(".Toggle-the-Auxiliary-bar").mouseup(function (e) { 
+    $('.Toggle-the-Auxiliary-bar').off('mousemove');
+    
+});
+$(".Toggle-the-Auxiliary-bar").mouseover(function (e) { 
+    $('.Toggle-the-Auxiliary-bar').off('mousemove');
+    
+});
+$(".Toggle-the-Auxiliary-bar .leftmove").click(function (e) { 
+    $(".hide1").animate({ width: `58%`},200);
+    $(".hide1").css("height","1400px")
+    $(".Toggle-the-Auxiliary-bar").animate({ height: `1400px`},200);
+    
+});
+$(".Toggle-the-Auxiliary-bar .rightmove").click(function (e) { 
+    $(".hide1").animate({ width: `15%`},200);
+    $(".hide1").css("height","700px")
+    $(".Toggle-the-Auxiliary-bar").animate({ height: `700px`},200);
+    
+});
+
 

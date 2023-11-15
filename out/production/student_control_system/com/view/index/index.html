@@ -38,10 +38,10 @@
                 data: data,
                 success: function (data) {
                     if(data!="-1"){
-                        console.log(key);
-                        console.log(data);
-                        console.log(keyparse(data));
-                        // location.assign(keyparse(data));
+                        // console.log(key);
+                        // console.log(data);
+                        // console.log(keyparse(data));
+                        location.assign(keyparse(data));
                     }else{
                         console.log("登录失败");
                     }
