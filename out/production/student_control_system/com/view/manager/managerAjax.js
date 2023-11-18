@@ -1314,3 +1314,31 @@ $(".MANAGER_SEE_TEACHERS button").click(function (e) {
     });
     e.preventDefault();
 });
+$(".Toggle-the-Auxiliary-bar").mousedown(function () { 
+    $(".Toggle-the-Auxiliary-bar").mousemove(function (e) { 
+        var ToggleWidth=(e.pageX)*(0.95);
+        $(".hide1").width(ToggleWidth);
+    });
+
+
+});
+$(".Toggle-the-Auxiliary-bar").mouseup(function (e) { 
+$('.Toggle-the-Auxiliary-bar').off('mousemove');
+
+});
+$(".Toggle-the-Auxiliary-bar").mouseover(function (e) { 
+$('.Toggle-the-Auxiliary-bar').off('mousemove');
+
+});
+$(".Toggle-the-Auxiliary-bar .leftmove").click(function (e) { 
+$(".hide1").animate({ width: `55%`},200);
+$(".hide1").css("height","1400px")
+$(".Toggle-the-Auxiliary-bar").animate({ height: `1400px`},200);
+
+});
+$(".Toggle-the-Auxiliary-bar .rightmove").click(function (e) { 
+$(".hide1").animate({ width: `15%`},200);
+$(".hide1").css("height","700px")
+$(".Toggle-the-Auxiliary-bar").animate({ height: `700px`},200);
+
+});

@@ -40,8 +40,9 @@
                     if(data!="-1"){
                         // console.log(key);
                         // console.log(data);
-                        // console.log(keyparse(data));
-                        location.assign(keyparse(data));
+                        // console.log(keyparse(data));]
+                        var datakey=data.split("---")
+                        location.assign(keyparse(datakey[0],datakey[1]));
                     }else{
                         console.log("登录失败");
                     }

@@ -11,10 +11,10 @@ public class teacher_load_actionLister extends driving_ActionLister implements A
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(useDao.load_teacher_Sheet()){
-            JOptionPane.showMessageDialog(jFrame,"老师表加载成功");
-        }else{
-            JOptionPane.showMessageDialog(jFrame,"老师表加载失败");
+        if (useDao.load_teacher_Sheet()) {
+            JOptionPane.showMessageDialog(jFrame, "老师表加载成功");
+        } else {
+            JOptionPane.showMessageDialog(jFrame, "老师表加载失败");
         }
     }
 }

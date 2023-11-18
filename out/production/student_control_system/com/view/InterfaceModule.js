@@ -5,23 +5,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const { send } = require('process');
  //编码设置
- var datastr="";
- var key=null;
- function setkey(){
-    fs.readFile('com/view/key.js', function (err,data) {
-        if (err) return console.error(err);
-        datastr=data.toString();
-        dataArray=datastr.split("\n");
-        key=parseInt(Math.floor(Math.random()*100),16);
-        dataArray[0]=`var key=${key}`;
-        datastr=dataArray.join("\n");
-        console.log(key);
-        fs.writeFile('com/view/key.js',datastr, function (err) {
-            if (err) return console.error(err);
-        });
-    });
- }
- setkey()
+ var key=parseInt(Math.floor(Math.random()*100),16);
 //路由创建
 const router = express.Router();
 //允许body的使用
@@ -101,7 +85,7 @@ router.get('/SQL_USER_LOGIN', (req, res) => {
                 }
                 newdata+=String.fromCharCode(data.charCodeAt(i)^key)
             }
-            return newdata;
+            return newdata+"---"+key;
         }
         if(err) {
             console.log(err.message);
